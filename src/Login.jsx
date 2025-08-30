@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 
 const LoginPage = ({ setCurrentPage }) => {
   const [formData, setFormData] = useState({
@@ -56,7 +56,7 @@ const LoginPage = ({ setCurrentPage }) => {
 
   return (
     <div className="login-page">
-      <Navbar setCurrentPage={setCurrentPage} currentPage="login" />
+      {/* <Navbar setCurrentPage={setCurrentPage} currentPage="login" /> */}
       
       <div className="auth-container">
         <div className="auth-card">

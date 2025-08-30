@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import './App.css'
-import Navbar from './Navbar'
-import HomePage from './HomePage'
-import Footer from './Footer'
-import LoginPage from './LoginPage'
-import SignupPage from './Signup'
+import Navbar from './Navbar.jsx'
+import HomePage from './HomePage.jsx'
+import Footer from './Footer.jsx'
+import LoginPage from './Login.jsx'
+import SignupPage from './Signup.jsx'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -21,6 +21,7 @@ function App() {
   };
   return (
     <div className="app">
+      <Navbar setCurrentPage={setCurrentPage} currentPage={currentPage} />
       {renderPage()}
     </div>
   );
