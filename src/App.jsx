@@ -3,7 +3,7 @@ import './App.css'
 import Navbar from './Navbar'
 import HomePage from './HomePage'
 import Footer from './Footer'
-import LoginPage from './Login'
+import LoginPage from './LoginPage'
 import SignupPage from './Signup'
 
 function App() {
