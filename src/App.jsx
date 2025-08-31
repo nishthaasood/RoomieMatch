@@ -8,11 +8,12 @@ import SignupPage from './Signup.jsx'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [isLogin, setIsLogin] = useState(false)
 
   const renderPage = () => {
     switch (currentPage) {
       case 'login':
-        return <LoginPage setCurrentPage={setCurrentPage} />;
+        return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} />;
       case 'signup':
         return <SignupPage setCurrentPage={setCurrentPage} />;
       default:
@@ -21,7 +22,7 @@ function App() {
   };
   return (
     <div className="app">
-      <Navbar setCurrentPage={setCurrentPage} currentPage={currentPage} />
+      <Navbar setCurrentPage={setCurrentPage} currentPage={currentPage} isLogin={isLogin} />
       {renderPage()}
     </div>
   );
