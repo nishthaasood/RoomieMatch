@@ -113,57 +113,15 @@ const HomePage = ({ setCurrentPage }) => {
               Safe, smart, and designed for today's lifestyle.
             </p>
             
-            <div className="hero-features-preview">
-              <div className="preview-item">
-                <Check className="w-5 h-5 text-emerald-500" />
-                <span>AI-Powered Matching</span>
-              </div>
-              <div className="preview-item">
-                <Check className="w-5 h-5 text-emerald-500" />
-                <span>Instant Messaging</span>
-              </div>
-              <div className="preview-item">
-                <Check className="w-5 h-5 text-emerald-500" />
-                <span>Verified Profiles</span>
-              </div>
-            </div>
-            
             <div className="hero-buttons">
               <button 
                 className="primary-hero-btn"
                 onClick={() => setCurrentPage('signup')}
-              >
-                <Sparkles className="w-5 h-5" />
-                Start Matching Now
-                <ArrowRight className="w-5 h-5" />
+              > Start Matching Now
               </button>
               <button className="secondary-hero-btn">
-                <span>Watch How It Works</span>
+                <span>How It Works</span>
               </button>
-            </div>
-            
-            <div className="trust-indicators">
-              <div className="trust-item">
-                <div className="trust-icon">⭐</div>
-                <div className="trust-text">
-                  <div className="trust-score">4.9/5</div>
-                  <div className="trust-label">User Rating</div>
-                </div>
-              </div>
-              <div className="trust-item">
-                <div className="trust-icon">🛡️</div>
-                <div className="trust-text">
-                  <div className="trust-score">100%</div>
-                  <div className="trust-label">Verified Safe</div>
-                </div>
-              </div>
-              <div className="trust-item">
-                <div className="trust-icon">🚀</div>
-                <div className="trust-text">
-                  <div className="trust-score">2 Min</div>
-                  <div className="trust-label">Setup Time</div>
-                </div>
-              </div>
             </div>
           </div>
           
