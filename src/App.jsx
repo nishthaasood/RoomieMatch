@@ -6,6 +6,7 @@ import Footer from './Footer.jsx'
 import LoginPage from './Login.jsx'
 import SignupPage from './Signup.jsx'
 import Profile from './Profile.jsx'
+import Matches from './Matches.jsx'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -19,6 +20,8 @@ function App() {
         return <SignupPage setCurrentPage={setCurrentPage} />;
       case 'profile':
         return <Profile setCurrentPage={setCurrentPage} />;
+      case 'matches':
+        return <Matches setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }

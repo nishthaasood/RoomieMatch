@@ -22,7 +22,17 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
           Home
         </a>
         <a href="#" onClick={(e) => e.preventDefault()}>Messages</a>
-        <a href="#" onClick={(e) => e.preventDefault()}>Matches</a>
+        {/* <a href="#" onClick={(e) => e.preventDefault()}>Matches</a> */}
+        <a 
+          href="#" 
+          className={currentPage === 'matches' ? 'active' : ''}
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('matches');
+          }}
+        >
+          Matches
+        </a>
         <a href="#" onClick={(e) => e.preventDefault()}>List A Room</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Find Your Roommate</a>
         <a 
