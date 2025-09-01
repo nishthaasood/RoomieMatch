@@ -78,10 +78,29 @@ const SignupPage = ({ setCurrentPage }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    
+  
+    let response;
     if (validateForm()) {
+      try {
+        response =await fetch("https://roomiebackend-production.up.railway.app/api/user/register",{
+          method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name:formData[firstName]+formData["lastName"],
+          age:Number(formData["age"]),
+          phoneNumber:Number(formData["phone"]),
+          password:formData["password"],
+          email:formData["email"]
+        })})
+      } catch (error) {
+        console.log("unable to register")
+      }
+      const data = await response.json();
+      console.log("user created",data)
       console.log('Signup attempt:', formData);
       alert('Account created successfully! Please check your email for verification.');
       setCurrentPage('login');

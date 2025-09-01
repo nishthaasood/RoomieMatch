@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import Navbar from './Navbar';
 
-const LoginPage = ({ setCurrentPage }) => {
+const LoginPage = ({ setCurrentPage,setIsLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -44,20 +44,42 @@ const LoginPage = ({ setCurrentPage }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (validateForm()) {
       console.log('Login attempt:', formData);
-      alert('Login successful! Welcome to RoomieMatch!');
-      setCurrentPage('home');
+      let response;
+      try {
+        response = await fetch("https://roomiebackend-production.up.railway.app/api/user/login",{
+          method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password: formData.password,
+          email: formData.email
+        })
+        })
+        const data =await response.json()
+        console.log(data)
+        setIsLogin(true)
+        alert('Login successful! Welcome to RoomieMatch!');
+         
+        setCurrentPage('home');
+      } catch (error) {
+        setIsLogin(false)
+      }
+      if(!response){
+        alert("try again!!")
+      }
     }
   };
 
   return (
     <div className="login-page">
       {/* <Navbar setCurrentPage={setCurrentPage} currentPage="login" /> */}
-      
+
       <div className="auth-container">
         <div className="auth-card">
           <h2 className="auth-title">Welcome Back</h2>

@@ -1,5 +1,6 @@
 
-const Navbar = ({ setCurrentPage, currentPage }) => {
+const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
+  console.log(isLogin)
   return (
     <nav className="navbar">
       <div 
@@ -36,7 +37,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
         </a>
       </div>
       
-      <div className="auth-buttons">
+      {!isLogin && < div className="auth-buttons">
         <button 
           className="login-btn"
           onClick={() => setCurrentPage('login')}
@@ -49,7 +50,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
         >
           Sign Up
         </button>
-      </div>
+      </div>}
     </nav>
   );
 };
