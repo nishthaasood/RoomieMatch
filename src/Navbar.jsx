@@ -22,8 +22,18 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
         </a>
         <a href="#" onClick={(e) => e.preventDefault()}>Messages</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Matches</a>
-        <a href="#" onClick={(e) => e.preventDefault()}>Food Services</a>
-        <a href="#" onClick={(e) => e.preventDefault()}>Profile</a>
+        <a href="#" onClick={(e) => e.preventDefault()}>List A Room</a>
+        <a href="#" onClick={(e) => e.preventDefault()}>Find Your Roommate</a>
+        <a 
+          href="#" 
+          className={currentPage === 'profile' ? 'active' : ''}
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('profile');
+          }}
+        >
+          Profile
+        </a>
       </div>
       
       <div className="auth-buttons">

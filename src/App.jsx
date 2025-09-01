@@ -5,6 +5,7 @@ import HomePage from './HomePage.jsx'
 import Footer from './Footer.jsx'
 import LoginPage from './Login.jsx'
 import SignupPage from './Signup.jsx'
+import Profile from './Profile.jsx'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -15,6 +16,8 @@ function App() {
         return <LoginPage setCurrentPage={setCurrentPage} />;
       case 'signup':
         return <SignupPage setCurrentPage={setCurrentPage} />;
+      case 'profile':
+        return <Profile setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }

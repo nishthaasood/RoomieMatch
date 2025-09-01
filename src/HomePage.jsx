@@ -193,7 +193,7 @@ const HomePage = ({ setCurrentPage }) => {
           <div className="process-header">
             <h2 className="process-title">
               Get Started in 
-              <span className="process-highlight">4 Easy Steps</span>
+              <span className="process-highlight"> 4 Easy Steps</span>
             </h2>
             <p className="process-subtitle">
               From signup to move-in, we make finding roommates simple and stress-free.
@@ -211,7 +211,7 @@ const HomePage = ({ setCurrentPage }) => {
                 <p className="step-description">{step.description}</p>
                 {index < steps.length - 1 && (
                   <div className="step-connector">
-                    <ArrowRight className="w-6 h-6" />
+                    <ArrowRight className="w-6 h-8" />
                   </div>
                 )}
               </div>
