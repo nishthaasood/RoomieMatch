@@ -1,7 +1,7 @@
 import Footer from './Footer';
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { Users } from 'lucide-react';
+
 
 const Profile = ({ setCurrentPage, setIsLogin }) => {
   const [activeTab, setActiveTab] = useState('personal');

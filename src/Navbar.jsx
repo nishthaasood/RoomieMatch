@@ -23,7 +23,7 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
         </a>
         <a href="#" onClick={(e) => e.preventDefault()}>Messages</a>
         {/* <a href="#" onClick={(e) => e.preventDefault()}>Matches</a> */}
-        <a 
+        {isLogin && <a 
           href="#" 
           className={currentPage === 'matches' ? 'active' : ''}
           onClick={(e) => {
@@ -32,10 +32,10 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
           }}
         >
           Matches
-        </a>
+        </a>}
         <a href="#" onClick={(e) => e.preventDefault()}>List A Room</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Find Your Roommate</a>
-        <a 
+        {isLogin && <a 
           href="#" 
           className={currentPage === 'profile' ? 'active' : ''}
           onClick={(e) => {
@@ -44,7 +44,7 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
           }}
         >
           Profile
-        </a>
+        </a>}
       </div>
       
       {!isLogin && < div className="auth-buttons">

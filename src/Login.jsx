@@ -63,10 +63,14 @@ const LoginPage = ({ setCurrentPage,setIsLogin }) => {
         })
         const data =await response.json()
         console.log(data)
-        setIsLogin(true)
-        alert('Login successful! Welcome to RoomieMatch!');
+        if (data["statusCode"]==200) {
+          setIsLogin(true)
+          alert('Login successful! Welcome to RoomieMatch!');
+          setCurrentPage('profile');
+        }else{
+          alert("wrong details")
+        }
          
-        setCurrentPage('home');
       } catch (error) {
         setIsLogin(false)
       }

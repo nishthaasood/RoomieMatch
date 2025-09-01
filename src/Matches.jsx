@@ -7,7 +7,7 @@ const Matches = ({ setCurrentPage }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/user/getAllUsers")
+    fetch("https://roomiebackend-production.up.railway.app/api/user/getAllUsers")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data.data)) {
@@ -37,8 +37,10 @@ const Matches = ({ setCurrentPage }) => {
 
       {matches.length > 0 ? (
         <div className="matches-grid">
-          {matches.map((match) => (
-            <Card
+          {matches
+          .filter((match) => match.isLooking)
+          .map((match) => (
+            < Card
               key={match._id}
               name={match.name}
               age={match.age}
