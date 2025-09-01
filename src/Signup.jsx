@@ -114,8 +114,6 @@ const SignupPage = ({ setCurrentPage }) => {
       <div className="auth-container">
         <div className="auth-card signup-card">
           <h2 className="auth-title">Create Your Account</h2>
-          <p className="auth-subtitle">Join RoomieMatch and find your perfect roommate</p>
-          
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-row">
               <div className="form-group">

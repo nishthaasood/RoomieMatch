@@ -41,19 +41,8 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
 
   const [formData, setFormData] = useState(profileData);
 
-  // Predefined options
-  const dealBreakerOptions = [
-    'Smoking', 'Vaping', 'Loud Music After 10 PM', 'Pets', 'Overnight Guests Frequently',
-    'Messy Common Areas', 'Strong Cooking Odors', 'Late Night Phone Calls',
-    'Drinking/Parties', 'Different Sleep Schedules', 'Shared Food Without Asking',
-    'Not Cleaning Dishes', 'Leaving Lights On', 'High Energy Bills'
-  ];
 
-  const interestOptions = [
-    'Technology', 'Hiking', 'Cooking', 'Reading', 'Gaming', 'Movies', 'Music',
-    'Sports', 'Fitness', 'Art', 'Photography', 'Travel', 'Dancing', 'Yoga',
-    'Meditation', 'Gardening', 'Board Games', 'Volunteering', 'Learning Languages'
-  ];
+  ;
 
   const handleChange = (e) => {
     const { name, value } = e.target;

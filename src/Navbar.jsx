@@ -1,6 +1,6 @@
+const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
+  console.log(isLogin);
 
-const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
-  console.log(isLogin)
   return (
     <nav className="navbar">
       <div 
@@ -13,7 +13,7 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
       <div className="nav-links">
         <a 
           href="#" 
-          className={currentPage === 'home' ? 'active' : ''}
+          className={currentPage === 'home' ? 'active' : ''} 
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('home');
@@ -21,6 +21,7 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
         >
           Home
         </a>
+<<<<<<< HEAD
         <a href="#" onClick={(e) => e.preventDefault()}>Messages</a>
         <a 
           href="#" 
@@ -34,9 +35,56 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
         </a>
         <a href="#" onClick={(e) => e.preventDefault()}>List A Room</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Find Your Roommate</a>
+=======
+
+>>>>>>> 60a75fa (added listroom)
         <a 
           href="#" 
-          className={currentPage === 'profile' ? 'active' : ''}
+          className={currentPage === 'messages' ? 'active' : ''} 
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('messages');
+          }}
+        >
+          Messages
+        </a>
+
+        <a 
+          href="#" 
+          className={currentPage === 'matches' ? 'active' : ''} 
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('matches');
+          }}
+        >
+          Matches
+        </a>
+
+        <a 
+          href="#" 
+          className={currentPage === 'listRoom' ? 'active' : ''} 
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('listRoom');
+          }}
+        >
+          List A Room
+        </a>
+
+        <a 
+          href="#" 
+          className={currentPage === 'findRoommate' ? 'active' : ''} 
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('findRoommate');
+          }}
+        >
+          Find Your Roommate
+        </a>
+
+        <a 
+          href="#" 
+          className={currentPage === 'profile' ? 'active' : ''} 
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('profile');
@@ -46,20 +94,22 @@ const Navbar = ({ setCurrentPage, currentPage,isLogin }) => {
         </a>
       </div>
       
-      {!isLogin && < div className="auth-buttons">
-        <button 
-          className="login-btn"
-          onClick={() => setCurrentPage('login')}
-        >
-          Login
-        </button>
-        <button 
-          className="signup-btn"
-          onClick={() => setCurrentPage('signup')}
-        >
-          Sign Up
-        </button>
-      </div>}
+      {!isLogin && (
+        <div className="auth-buttons">
+          <button 
+            className="login-btn"
+            onClick={() => setCurrentPage('login')}
+          >
+            Login
+          </button>
+          <button 
+            className="signup-btn"
+            onClick={() => setCurrentPage('signup')}
+          >
+            Sign Up
+          </button>
+        </div>
+      )}
     </nav>
   );
 };
