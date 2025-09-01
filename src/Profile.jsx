@@ -1,6 +1,7 @@
 import Footer from './Footer';
 import { useState, useEffect } from 'react';
 import React from 'react';
+import { Users } from 'lucide-react';
 
 const Profile = ({ setCurrentPage, setIsLogin }) => {
   const [activeTab, setActiveTab] = useState('personal');
@@ -8,16 +9,16 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
   const [showSignOutModal, setShowSignOutModal] = useState(false);
 
   const [profileData, setProfileData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@gmail.com',
-    age: '25',
-    phone: '+1 (555) 123-4567',
-    bio: 'I am a software engineer who loves coding, hiking, and cooking. Looking for a clean, respectful roommate who shares similar interests.',
-    occupation: 'Software Engineer',
-    university: 'Stanford University',
-    budget: '1500',
-    location: 'San Francisco, CA',
+    firstName: 'Rohit',
+    lastName: 'Sharma',
+    email: 'sharma47@gmail.com',
+    age: '19',
+    phone: '+91 98765 43210',
+    bio: 'I am a 2nd year IT student.',
+    occupation: 'Student',
+    university: 'Bhagwan Parshuram Institute of Technology',
+    budget: '7500',
+    location: 'Rohini Sector 7, Delhi',
     
     // Roommate preferences
     dealBreakers: ['Smoking', 'Loud Music After 10 PM', 'Pets'],
@@ -100,18 +101,8 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
   };
 
   return (
-    <div className="profile-page">
+        <div className="profile-page">
       <div className="profile-container">
-        <div className="profile-header">
-          <h2 className="profile-title">My Profile</h2>
-          <button 
-            className="signout-btn"
-            onClick={() => setShowSignOutModal(true)}
-          >
-            <span className="btn-icon">⏻</span>
-            Sign Out
-          </button>
-        </div>
 
         {/* Tab Navigation */}
         <div className="profile-tabs">
@@ -140,7 +131,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
           <div className="profile-image-section">
             <div className="profile-image-wrapper">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&h=160&fit=crop&crop=face"
+                src="public/avatar.jpg"
                 alt="Profile"
                 className="profile-image"
               />
@@ -149,10 +140,6 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                   📷 Change Photo
                 </button>
               )}
-            </div>
-            <div className="profile-status">
-              <span className="status-indicator active"></span>
-              Looking for Roommate
             </div>
           </div>
 
@@ -598,6 +585,15 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
           </div>
         </div>
       </div>
+        <div className="profile-footer">
+          <button 
+            className="signout-btn"
+            onClick={() => setShowSignOutModal(true)}
+          >
+            <span className="btn-icon">⏻</span>
+            Sign Out
+          </button>
+        </div>
 
       {/* Sign Out Confirmation Modal */}
       {showSignOutModal && (
