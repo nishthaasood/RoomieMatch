@@ -6,8 +6,10 @@ import Footer from './Footer.jsx'
 import LoginPage from './Login.jsx'
 import SignupPage from './Signup.jsx'
 import Profile from './Profile.jsx'
-import ListARoom from './ListRoom.jsx'   
 import Matches from './Matches.jsx'
+import ListARoom from './listRoom.jsx'
+
+
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -26,6 +28,8 @@ function App() {
         return <Matches setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
+        case 'listRoom': 
+        return <ListARoom setCurrentPage={setCurrentPage} />;
     }
   };
 

@@ -147,4 +147,3 @@ function ListARoom({ setCurrentPage }) {
 }
 
 export default ListARoom;
-
