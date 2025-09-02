@@ -1,6 +1,7 @@
+
 const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
   console.log(isLogin);
-
+  
   return (
     <nav className="navbar">
       <div 
@@ -12,8 +13,8 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
       
       <div className="nav-links">
         <a 
-          href="#" 
-          className={currentPage === 'home' ? 'active' : ''} 
+          href="#"
+          className={currentPage === 'home' ? 'active' : ''}
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('home');
@@ -21,10 +22,20 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
         >
           Home
         </a>
-<<<<<<< HEAD
-        <a href="#" onClick={(e) => e.preventDefault()}>Messages</a>
+        
         <a 
-          href="#" 
+          href="#"
+          className={currentPage === 'messages' ? 'active' : ''}
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('messages');
+          }}
+        >
+          Messages
+        </a>
+        
+        <a 
+          href="#"
           className={currentPage === 'matches' ? 'active' : ''}
           onClick={(e) => {
             e.preventDefault();
@@ -33,36 +44,10 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
         >
           Matches
         </a>
-        <a href="#" onClick={(e) => e.preventDefault()}>List A Room</a>
-        <a href="#" onClick={(e) => e.preventDefault()}>Find Your Roommate</a>
-=======
-
->>>>>>> 60a75fa (added listroom)
+        
         <a 
-          href="#" 
-          className={currentPage === 'messages' ? 'active' : ''} 
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('messages');
-          }}
-        >
-          Messages
-        </a>
-
-        <a 
-          href="#" 
-          className={currentPage === 'matches' ? 'active' : ''} 
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('matches');
-          }}
-        >
-          Matches
-        </a>
-
-        <a 
-          href="#" 
-          className={currentPage === 'listRoom' ? 'active' : ''} 
+          href="#"
+          className={currentPage === 'listRoom' ? 'active' : ''}
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('listRoom');
@@ -70,10 +55,10 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
         >
           List A Room
         </a>
-
+        
         <a 
-          href="#" 
-          className={currentPage === 'findRoommate' ? 'active' : ''} 
+          href="#"
+          className={currentPage === 'findRoommate' ? 'active' : ''}
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('findRoommate');
@@ -81,10 +66,10 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
         >
           Find Your Roommate
         </a>
-
+        
         <a 
-          href="#" 
-          className={currentPage === 'profile' ? 'active' : ''} 
+          href="#"
+          className={currentPage === 'profile' ? 'active' : ''}
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('profile');
