@@ -50,6 +50,7 @@ const Matches = ({ setCurrentPage }) => {
               dealbrakers={match.dealbrakers}
               leaseDuration={match.leaseDuration}
               moveinDate={match.moveinDate}
+              imageURL={match.avatar}
             />
           ))}
         </div>
