@@ -6,7 +6,7 @@ import Footer from './Footer.jsx'
 import LoginPage from './Login.jsx'
 import SignupPage from './Signup.jsx'
 import Profile from './Profile.jsx'
-import ListARoom from './listRoom.jsx'   
+import ListARoom from './ListRoom.jsx'   
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
