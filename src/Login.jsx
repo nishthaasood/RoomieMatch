@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import Navbar from './Navbar';
 
-const LoginPage = ({ setCurrentPage,setIsLogin }) => {
+const LoginPage = ({ setCurrentPage,setIsLogin, setAccessToken }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -62,7 +62,8 @@ const LoginPage = ({ setCurrentPage,setIsLogin }) => {
         })
         })
         const data =await response.json()
-        console.log(data)
+        console.log(data["data"]["token"])
+        setAccessToken(data["data"]["token"])
         if (data["statusCode"]==200) {
           setIsLogin(true)
           alert('Login successful! Welcome to RoomieMatch!');
