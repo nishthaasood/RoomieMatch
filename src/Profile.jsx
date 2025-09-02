@@ -1,9 +1,51 @@
 import Footer from './Footer';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import React from 'react';
 
-
 const Profile = ({ setCurrentPage, setIsLogin }) => {
+  // ✅ Define options here so they don't crash your component
+  const dealBreakerOptions = [
+    "Smoking",
+    "Loud Music After 10 PM",
+    "Pets",
+    "Messiness",
+    "Night Owls",
+    "Alcohol/Drinking",
+    "Poor Hygiene",
+    "Borrowing Stuff Without Asking",
+    "Dirty Dishes",
+    "Leaving Lights On",
+    "High Energy Bills",
+    "Overnight Guests",
+    "Different Sleep Schedules",
+    "Strong Cooking Odors",
+    "Lack of Communication",
+    "Snoring"
+  ];
+
+  const interestOptions = [
+  "Technology",
+  "Hiking",
+  "Cooking",
+  "Reading",
+  "Gaming",
+  "Music",
+  "Sports",
+  "Traveling",
+  "Photography",
+  "Fitness/Gym",
+  "Dancing",
+  "Art & Painting",
+  "Watching Movies/Series",
+  "Yoga & Meditation",
+  "Fashion & Styling",
+  "Volunteering",
+  "Foodie/Exploring Restaurants",
+  "Writing/Blogging",
+  "Gardening",
+  "DIY Projects"
+  ];
+
   const [activeTab, setActiveTab] = useState('personal');
   const [isEditing, setIsEditing] = useState(false);
   const [showSignOutModal, setShowSignOutModal] = useState(false);
@@ -41,9 +83,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
 
   const [formData, setFormData] = useState(profileData);
 
-
-  ;
-
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes('.')) {
@@ -63,6 +103,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
     }
   };
 
+  // Handle multiple select (checkboxes)
   const handleMultiSelect = (field, value) => {
     setFormData(prev => ({
       ...prev,
@@ -90,7 +131,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
   };
 
   return (
-        <div className="profile-page">
+    <div className="profile-page">
       <div className="profile-container">
 
         {/* Tab Navigation */}
@@ -149,6 +190,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
 
                 {isEditing ? (
                   <div className="profile-form">
+                    {/* First & Last Name */}
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">First Name</label>
@@ -174,6 +216,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                       </div>
                     </div>
 
+                    {/* Email & Phone */}
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">Email</label>
@@ -199,6 +242,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                       </div>
                     </div>
 
+                    {/* Age & Occupation */}
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">Age</label>
@@ -224,6 +268,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                       </div>
                     </div>
 
+                    {/* University */}
                     <div className="form-group">
                       <label className="form-label">University/School</label>
                       <input
@@ -236,6 +281,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                       />
                     </div>
 
+                    {/* Bio */}
                     <div className="form-group">
                       <label className="form-label">Bio</label>
                       <textarea
@@ -244,10 +290,11 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                         onChange={handleChange}
                         className="form-textarea"
                         rows="4"
-                        placeholder="Tell us about yourself, your lifestyle, and what you're looking for in a roommate..."
+                        placeholder="Tell us about yourself..."
                       ></textarea>
                     </div>
 
+                    {/* Save/Cancel */}
                     <div className="profile-actions">
                       <button onClick={handleSave} className="save-btn">
                         <span className="btn-icon">✓</span>
@@ -337,6 +384,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                       </div>
                     </div>
 
+                    {/* Preferences */}
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">Cleanliness Level</label>
@@ -396,6 +444,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
                       </div>
                     </div>
 
+                    {/* Save/Cancel */}
                     <div className="profile-actions">
                       <button onClick={handleSave} className="save-btn">
                         <span className="btn-icon">✓</span>
@@ -574,15 +623,17 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
           </div>
         </div>
       </div>
-        <div className="profile-footer">
-          <button 
-            className="signout-btn"
-            onClick={() => setShowSignOutModal(true)}
-          >
-            <span className="btn-icon">⏻</span>
-            Sign Out
-          </button>
-        </div>
+
+      {/* Footer */}
+      <div className="profile-footer">
+        <button 
+          className="signout-btn"
+          onClick={() => setShowSignOutModal(true)}
+        >
+          <span className="btn-icon">⏻</span>
+          Sign Out
+        </button>
+      </div>
 
       {/* Sign Out Confirmation Modal */}
       {showSignOutModal && (
