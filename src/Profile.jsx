@@ -2,7 +2,7 @@ import Footer from './Footer';
 import { useState } from 'react';
 import React from 'react';
 
-const Profile = ({ setCurrentPage, setIsLogin }) => {
+const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
   // ✅ Define options here so they don't crash your component
   const dealBreakerOptions = [
     "Smoking",
@@ -55,7 +55,7 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
     lastName: 'Sharma',
     email: 'sharma47@gmail.com',
     age: '19',
-    phone: '+91 98765 43210',
+    phone: '9876543210',
     bio: 'I am a 2nd year IT student.',
     occupation: 'Student',
     university: 'Bhagwan Parshuram Institute of Technology',
@@ -103,6 +103,58 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
     }
   };
 
+  const [avatarUrl, setAvatarUrl] = useState("public/avatar.jpg")
+  const formPayload = new FormData();
+  const handleSave = async () => {
+    try {
+
+      // Map frontend state to backend API keys
+      formPayload.append("name", `${formData.firstName} ${formData.lastName}`);
+      formPayload.append("age", parseInt(formData.age, 10));
+      formPayload.append("phoneNumber", formData.phone);
+      formPayload.append("budget", parseInt(formData.budget, 10));
+      formPayload.append("leaseDuration", parseInt(formData.leaseDuration, 10));
+      formPayload.append("moveinDate", new Date(formData.moveInDate).toISOString());
+      formPayload.append("description", formData.bio);
+      // Arrays need to be stringified or appended one by one
+      formPayload.append("dealbrakers",JSON.stringify(formData.dealBreakers))
+      formPayload.append("interests",JSON.stringify(formData.interests))
+
+      // Avatar file (only if changed)
+      if (formData.avatarFile) {
+        formPayload.append("avatar", formData.avatarFile);
+      }
+
+      // Add auth token
+      
+      formPayload.append("accessToken", accessToken);
+
+      console.log(formPayload)
+      // Call API
+      const res = await fetch("roomiebackend-production.up.railway.app/api/user/updateUser", {
+        method: "PUT", // or POST depending on your API
+        body: formPayload
+      });
+      const data = await res.json();
+      console.log("data :: ", data)
+      console.log("avatar :: ", data["data"]["avatar"])
+
+      setAvatarUrl(data["data"]["avatar"])
+      if (res.ok) {
+        console.log("Profile updated:", data);
+        setProfileData(formData);
+        setIsEditing(false);
+      } else {
+        console.error("Update failed:", data.message || data);
+        alert("Failed to update profile!");
+      }
+    } catch (err) {
+      console.error("Error updating profile:", err);
+      alert("Something went wrong while updating!");
+    }
+  };
+ 
+
   // Handle multiple select (checkboxes)
   const handleMultiSelect = (field, value) => {
     setFormData(prev => ({
@@ -119,10 +171,10 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
     setFormData(profileData);
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    setProfileData(formData);
-  };
+  // const handleSave = () => {
+  //   setIsEditing(false);
+  //   setProfileData(formData);
+  // };
 
   const handleSignOut = () => {
     setIsLogin(false);
@@ -161,15 +213,30 @@ const Profile = ({ setCurrentPage, setIsLogin }) => {
           <div className="profile-image-section">
             <div className="profile-image-wrapper">
               <img
-                src="public/avatar.jpg"
+                src={avatarUrl}
                 alt="Profile"
                 className="profile-image"
               />
               {isEditing && (
-                <button className="change-photo-btn">
-                  📷 Change Photo
-                </button>
+                <div>
+                  <button className="change-photo-btn" onClick={() => document.getElementById("avatarUpload").click()}>
+                    📷 Change Photo
+                  </button>
+                  <input
+                    type="file"
+                    id="avatarUpload"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        setFormData(prev => ({ ...prev, avatarFile: file }));
+                      }
+                    }}
+                  />
+                </div>
               )}
+
             </div>
           </div>
 

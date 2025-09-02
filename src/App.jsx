@@ -7,19 +7,23 @@ import LoginPage from './Login.jsx'
 import SignupPage from './Signup.jsx'
 import Profile from './Profile.jsx'
 import ListARoom from './ListRoom.jsx'   
+import Matches from './Matches.jsx'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(false);
+  const [accessToken, setAccessToken] = useState('') 
 
   const renderPage = () => {
     switch (currentPage) {
       case 'login':
-        return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} />;
+        return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} />;
       case 'signup':
         return <SignupPage setCurrentPage={setCurrentPage} />;
       case 'profile':
-        return <Profile setCurrentPage={setCurrentPage} />;
+        return <Profile setCurrentPage={setCurrentPage} accessToken={accessToken}/>;
+      case 'matches':
+        return <Matches setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }
