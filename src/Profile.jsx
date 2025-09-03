@@ -131,7 +131,7 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
 
       console.log(formPayload)
       // Call API
-      const res = await fetch("https://roomiebackend-production.up.railway.app/api/user/updateUser", {
+      const res = await fetch("http://localhost:3001/api/user/updateUser", {
         method: "PUT", // or POST depending on your API
         body: JSON.stringify(formPayload),
         headers: { "Content-Type": "application/json" },

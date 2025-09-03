@@ -26,10 +26,10 @@ function App() {
         return <Profile setCurrentPage={setCurrentPage} accessToken={accessToken}/>;
       case 'matches':
         return <Matches setCurrentPage={setCurrentPage} />;
+      case 'listRoom': 
+        return <ListARoom setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
-        case 'listRoom': 
-        return <ListARoom setCurrentPage={setCurrentPage} />;
     }
   };
 
