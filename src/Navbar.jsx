@@ -41,30 +41,19 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
             setCurrentPage('matches');
           }}
         >
-          Matches
+          Find Roommate
         </a>
         
-        {/* ✅ List A Room */}
+        {/* Find a Room */}
         <a 
           href="#"
-          className={currentPage === 'listRoom' ? 'active' : ''}
+          className={currentPage === 'findRoom' ? 'active' : ''}
           onClick={(e) => {
             e.preventDefault();
-            setCurrentPage('listRoom');
+            setCurrentPage('findRoom');
           }}
         >
-          List A Room
-        </a>
-        
-        <a 
-          href="#"
-          className={currentPage === 'findRoommate' ? 'active' : ''}
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('findRoommate');
-          }}
-        >
-          Find Your Roommate
+          Find a Room
         </a>
         
         <a 
