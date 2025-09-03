@@ -344,7 +344,7 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
                         value={formData.university}
                         onChange={handleChange}
                         className="form-input"
-                        placeholder="Stanford University"
+                        placeholder="Bhagwan Parshuram Institute of Technology"
                       />
                     </div>
 
