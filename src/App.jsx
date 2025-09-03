@@ -8,7 +8,7 @@ import SignupPage from './Signup.jsx'
 import Profile from './Profile.jsx'
 import Matches from './Matches.jsx'
 import ListARoom from './ListRoom.jsx'
-import FindRoom from './FindRoom.jsx' // Make sure this import exists
+import FindRoom from './FindRoom.jsx'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -27,6 +27,8 @@ function App() {
         return <Matches setCurrentPage={setCurrentPage} />;
       case 'listRoom': 
         return <ListARoom setCurrentPage={setCurrentPage} />;
+      case 'findRoom':
+        return <FindRoom setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }
