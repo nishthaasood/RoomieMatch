@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 
-const SignupPage = ({ setCurrentPage }) => {
+const SignupPage = ({ setCurrentPage, setRegisterData }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -80,7 +80,8 @@ const SignupPage = ({ setCurrentPage }) => {
 
   const handleSubmit =async (e) => {
     e.preventDefault();
-  
+    console.log(formData)
+    setRegisterData(formData)
     let response;
     if (validateForm()) {
       try {

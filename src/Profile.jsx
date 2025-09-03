@@ -2,7 +2,7 @@ import Footer from './Footer';
 import { useState } from 'react';
 import React from 'react';
 
-const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
+const Profile = ({ setCurrentPage, setIsLogin, accessToken, registerData }) => {
   // ✅ Define options here so they don't crash your component
   const dealBreakerOptions = [
     "Smoking",
@@ -51,15 +51,15 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
   const [showSignOutModal, setShowSignOutModal] = useState(false);
 
   const [profileData, setProfileData] = useState({
-    firstName: 'Rohit',
-    lastName: 'Sharma',
-    email: 'sharma47@gmail.com',
-    age: '19',
-    phone: '9876543210',
-    bio: 'I am a 2nd year IT student.',
+    firstName: registerData.firstName,
+    lastName: registerData.lastName,
+    email: registerData.email,
+    age: registerData.age,
+    phone: registerData.phone,
+    bio: '',
     occupation: 'Student',
     university: 'Bhagwan Parshuram Institute of Technology',
-    budget: '7500',
+    budget: '12000',
     location: 'Rohini Sector 7, Delhi',
     
     // Roommate preferences
@@ -339,15 +339,17 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
 
                     {/* University */}
                     <div className="form-group">
+                    
                       <label className="form-label">University/School</label>
+                      {isEditing &&
                       <input
                         type="text"
                         name="university"
                         value={formData.university}
                         onChange={handleChange}
                         className="form-input"
-                        placeholder="Bhagwan Parshuram Institute of Technology"
-                      />
+                        placeholder="Stanford University"
+                      />}
                     </div>
 
                     {/* Bio */}

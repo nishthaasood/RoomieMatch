@@ -14,14 +14,15 @@ import Messages from './Messages.jsx';
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isLogin, setIsLogin] = useState(false);
-  const [accessToken, setAccessToken] = useState('') 
+  const [accessToken, setAccessToken] = useState('');
+  const [registerData, setRegisterData] = useState({})
 
   const renderPage = () => {
     switch (currentPage) {
       case 'login':
-        return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} />;
+        return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} setRegisterData={setRegisterData} />;
       case 'signup':
-        return <SignupPage setCurrentPage={setCurrentPage} />;
+        return <SignupPage setCurrentPage={setCurrentPage} setUserData={setRegisterData}/>;
       case 'profile':
         return <Profile setCurrentPage={setCurrentPage} accessToken={accessToken}/>;
       case 'matches':
