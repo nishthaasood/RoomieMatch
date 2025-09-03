@@ -129,11 +129,13 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
       
       formPayload.append("accessToken", accessToken);
 
-      console.log(formPayload)
+      console.log("form Pay load :: ",formPayload)
+      console.log("access token :: ",accessToken)
       // Call API
-      const res = await fetch("roomiebackend-production.up.railway.app/api/user/updateUser", {
+      const res = await fetch("https://roomiebackend-production.up.railway.app/api/user/updateUser", {
         method: "PUT", // or POST depending on your API
-        body: formPayload
+        body: formPayload,
+        // headers: { "Content-Type": "application/json" },
       });
       const data = await res.json();
       console.log("data :: ", data)

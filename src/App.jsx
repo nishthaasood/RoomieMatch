@@ -27,8 +27,6 @@ function App() {
         return <Matches setCurrentPage={setCurrentPage} />;
       case 'listRoom': 
         return <ListARoom setCurrentPage={setCurrentPage} />;
-      case 'findRoom':
-        return <FindRoom setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }
