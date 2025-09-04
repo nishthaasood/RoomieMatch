@@ -9,6 +9,7 @@ import Profile from './Profile.jsx'
 import Matches from './Matches.jsx'
 import ListARoom from './ListRoom.jsx'
 import FindRoom from './FindRoom.jsx'
+import Messages from './Messages.jsx';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -29,6 +30,8 @@ function App() {
         return <ListARoom setCurrentPage={setCurrentPage} />;
       case 'findRoom':
         return <FindRoom setCurrentPage={setCurrentPage} />;
+      case 'messages':  
+        return <Messages setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }
