@@ -7,7 +7,7 @@ import LoginPage from './Login.jsx'
 import SignupPage from './Signup.jsx'
 import Profile from './Profile.jsx'
 import Matches from './Matches.jsx'
-import ListARoom from './ListRoom.jsx'
+import ListARoom from './ListARoom.jsx'
 import FindRoom from './FindRoom.jsx'
 import Messages from './Messages.jsx';
 
@@ -26,7 +26,7 @@ function App() {
         return <Profile setCurrentPage={setCurrentPage} accessToken={accessToken}/>;
       case 'matches':
         return <Matches setCurrentPage={setCurrentPage} />;
-      case 'listRoom': 
+      case 'listARoom': 
         return <ListARoom setCurrentPage={setCurrentPage} />;
       case 'findRoom':
         return <FindRoom setCurrentPage={setCurrentPage} />;

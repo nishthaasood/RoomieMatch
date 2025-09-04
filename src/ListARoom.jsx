@@ -8,7 +8,7 @@ const dealBreakerOptions = [
   "Shared Food Without Asking", "Not Cleaning Dishes", "Leaving Lights On", "High Energy Bills"
 ];
 
-export default function ListRoom() {
+export default function ListARoom() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedDealBreakers, setSelectedDealBreakers] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
