@@ -1,58 +1,14 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import SwipeableRoomCard from "./SwipeableRoomCard";
+import "./FindRoom.css";
 
-// Clean Room Card Component
-const RoomCard = ({ 
-  roomTitle, 
-  roomDetails, 
-  location, 
-  rent, 
-  tiffinServices,
-  selectedDealBreakers,
-  roomPhoto,
-  ownerName,
-  ownerContact 
-}) => {
-  return (
-    <div className="room-card-clean">
-      <div className="room-image-wrapper">
-        <img src={roomPhoto} alt={roomTitle} className="room-img" />
-        <div className="rent-tag">₹{rent.toLocaleString()}/mo</div>
-      </div>
-      
-      <div className="room-info">
-        <h3 className="room-title">{roomTitle}</h3>
-        <p className="room-location">{location}</p>
-        <p className="room-desc">{roomDetails}</p>
-        
-        {selectedDealBreakers && selectedDealBreakers.length > 0 && (
-          <div className="deal-breakers">
-            {selectedDealBreakers.slice(0, 2).map((item, idx) => (
-              <span key={idx} className="deal-tag">{item}</span>
-            ))}
-            {selectedDealBreakers.length > 2 && (
-              <span className="deal-tag">+{selectedDealBreakers.length - 2} more</span>
-            )}
-          </div>
-        )}
-        
-        <div className="room-bottom">
-          <div className="owner-contact">
-            <span>{ownerName}</span>
-            <span>{ownerContact}</span>
-          </div>
-          <button className="contact-btn">Contact</button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const FindRoom = ({ setCurrentPage }) => {
+const SwipeableRoomFinder = ({ setCurrentPage }) => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [maxRent, setMaxRent] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [sortBy, setSortBy] = useState("rent");
+  const [acceptedRooms, setAcceptedRooms] = useState([]);
+  const [showMatches, setShowMatches] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,127 +16,176 @@ const FindRoom = ({ setCurrentPage }) => {
         {
           id: 1,
           roomTitle: "Cozy Corner Room",
-          roomDetails: "Well-lit room with attached bathroom. Fully furnished with bed, study table, and wardrobe.",
+          roomDetails:
+            "Well-lit room with attached bathroom. Fully furnished with bed, study table, and wardrobe. Perfect for working professionals.",
           location: "Rohini Sector 7, Delhi",
           rent: 8000,
-          tiffinServices: "Sharma Tiffin Service nearby",
           selectedDealBreakers: ["Smoking", "Loud Music After 10 PM", "Pets"],
-          roomPhoto: "https://via.placeholder.com/300x200/bb7d5f/ffffff?text=Room+1",
+          roomPhoto:
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=500&fit=crop&crop=center",
           ownerName: "Priya Sharma",
-          ownerContact: "+91 9876543210"
+          ownerContact: "+91 9876543210",
         },
         {
           id: 2,
           roomTitle: "Student Paradise",
-          roomDetails: "Spacious room in peaceful locality. Close to metro and university. WiFi included.",
+          roomDetails:
+            "Spacious room in peaceful locality. Close to metro and university. WiFi included with high-speed internet connection.",
           location: "Laxmi Nagar, Delhi",
           rent: 6500,
-          tiffinServices: "Multiple food options",
           selectedDealBreakers: ["Pets", "Overnight Guests"],
-          roomPhoto: "https://via.placeholder.com/300x200/97341B/ffffff?text=Room+2",
+          roomPhoto:
+            "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=500&fit=crop&crop=center",
           ownerName: "Rajesh Kumar",
-          ownerContact: "+91 9876543211"
+          ownerContact: "+91 9876543211",
         },
         {
           id: 3,
           roomTitle: "Modern Living Space",
-          roomDetails: "Contemporary furnished room with AC, good ventilation, and 24/7 security.",
+          roomDetails:
+            "Contemporary furnished room with AC, good ventilation, and 24/7 security. Premium amenities included.",
           location: "Janakpuri, Delhi",
           rent: 12000,
-          tiffinServices: "Home-style meals available",
           selectedDealBreakers: ["Smoking", "Messy Areas"],
-          roomPhoto: "https://via.placeholder.com/300x200/62200C/ffffff?text=Room+3",
+          roomPhoto:
+            "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=500&fit=crop&crop=center",
           ownerName: "Anjali Gupta",
-          ownerContact: "+91 9876543212"
+          ownerContact: "+91 9876543212",
         },
-        {
-          id: 4,
-          roomTitle: "Budget-Friendly Room",
-          roomDetails: "Clean room in friendly neighborhood. Basic amenities provided. Great for students.",
-          location: "Tilak Nagar, Delhi",
-          rent: 5000,
-          tiffinServices: "Local mess nearby",
-          selectedDealBreakers: ["Drinking/Parties", "Different Sleep Schedules"],
-          roomPhoto: "https://via.placeholder.com/300x200/bb7d5f/ffffff?text=Room+4",
-          ownerName: "Suresh Patel",
-          ownerContact: "+91 9876543213"
-        }
       ];
-      
       setRooms(mockRooms);
       setLoading(false);
     }, 800);
   }, []);
 
-  const filteredRooms = rooms.filter(room => {
-    const matchesSearch = !searchTerm || 
-      room.roomTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      room.location.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRent = !maxRent || room.rent <= parseInt(maxRent);
-    return matchesSearch && matchesRent;
+  const sortedRooms = [...rooms].sort((a, b) => {
+    switch (sortBy) {
+      case "rent":
+        return a.rent - b.rent;
+      case "location":
+        return a.location.localeCompare(b.location);
+      default:
+        return 0;
+    }
   });
+
+  const handleSwipe = (roomId, direction) => {
+    if (direction === "right") {
+      const room = rooms.find((r) => r.id === roomId);
+      setAcceptedRooms((prev) => [...prev, room]);
+    }
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const currentRoom = sortedRooms[currentIndex];
+  const nextRoom = sortedRooms[currentIndex + 1];
 
   if (loading) {
     return (
-      <div className="loading-simple">
-        <p>Finding rooms for you...</p>
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Finding perfect rooms for you...</p>
+      </div>
+    );
+  }
+
+  if (showMatches) {
+    return (
+      <div className="matches-container">
+        <div className="matches-header">
+          <button className="back-btn" onClick={() => setShowMatches(false)}>
+            ←
+          </button>
+          <h2>Your Matches ({acceptedRooms.length})</h2>
+        </div>
+        <div className="matches-grid">
+          {acceptedRooms.map((room) => (
+            <div key={room.id} className="match-card">
+              <img src={room.roomPhoto} alt={room.roomTitle} />
+              <div className="match-info">
+                <h3>{room.roomTitle}</h3>
+                <p>{room.location}</p>
+                <p className="match-rent">₹{room.rent.toLocaleString()}/mo</p>
+                <button className="contact-match-btn">Contact Owner</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (currentIndex >= sortedRooms.length) {
+    return (
+      <div className="end-container">
+        <h2>No more rooms!</h2>
+        <p>You've seen all available rooms</p>
+        <button
+          className="view-matches-btn"
+          onClick={() => setShowMatches(true)}
+        >
+          View Your Matches ({acceptedRooms.length})
+        </button>
+        <button
+          className="list-room-btn"
+          onClick={() => setCurrentPage("listRoom")}
+        >
+          List Your Room
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="find-room-clean">
-      <div className="page-header">
+    <div className="swipe-container">
+      <div className="header">
         <h1>Find Your Room</h1>
-        <p>Browse available rooms and find your perfect match</p>
+        <div className="header-controls">
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-select"
+          >
+            <option value="rent">Sort by Rent</option>
+            <option value="location">Sort by Location</option>
+          </select>
+          {acceptedRooms.length > 0 && (
+            <button
+              className="matches-btn"
+              onClick={() => setShowMatches(true)}
+            >
+              Matches ({acceptedRooms.length})
+            </button>
+          )}
+        </div>
       </div>
 
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search by location or room name..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
-        <input
-          type="number"
-          placeholder="Max rent (₹)"
-          value={maxRent}
-          onChange={(e) => setMaxRent(e.target.value)}
-          className="rent-input"
-        />
-        {(searchTerm || maxRent) && (
-          <button 
-            className="clear-search"
-            onClick={() => { setSearchTerm(''); setMaxRent(''); }}
-          >
-            Clear
-          </button>
+      <div className="cards-stack">
+        {nextRoom && (
+          <SwipeableRoomCard
+            key={nextRoom.id}
+            room={nextRoom}
+            onSwipe={handleSwipe}
+            isTop={false}
+            style={{ transform: "scale(0.95) translateY(10px)" }}
+          />
+        )}
+        {currentRoom && (
+          <SwipeableRoomCard
+            key={currentRoom.id}
+            room={currentRoom}
+            onSwipe={handleSwipe}
+            isTop={true}
+          />
         )}
       </div>
 
-      <div className="rooms-grid-clean">
-        {/* List Your Room Card */}
-        <div className="list-room-simple" onClick={() => setCurrentPage('listRoom')}>
-          <div className="plus-circle">+</div>
-          <h3>List Your Room</h3>
-          <p>Have a room to rent? Post it here!</p>
-        </div>
-
-        {filteredRooms.map((room) => (
-          <RoomCard key={room.id} {...room} />
-        ))}
+      <div className="swipe-instructions">
+        <span className="instruction decline">← Swipe left to decline</span>
+        <span className="instruction accept">Swipe right to accept →</span>
       </div>
-
-      {filteredRooms.length === 0 && (
-        <div className="no-results">
-          <h3>No rooms found</h3>
-          <p>Try adjusting your search or check back later</p>
-        </div>
-      )}
     </div>
   );
 };
 
-export default FindRoom;
+export default SwipeableRoomFinder;

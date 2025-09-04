@@ -1,0 +1,466 @@
+.swipe-container {
+          min-height: 100vh;
+          background: #f9f9f9;
+          padding: 20px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          color: white;
+        }
+
+        .header h1 {
+          margin: 0;
+          font-size: 2rem;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-controls {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+
+        .sort-select {
+          padding: 8px 15px;
+          border-radius: 20px;
+          border: none;
+          background: rgba(255, 255, 255, 0.9);
+          color: #B45309;
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+        .matches-btn {
+          padding: 8px 15px;
+          border-radius: 20px;
+          border: 2px solid white;
+          background: transparent;
+          color: white;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .matches-btn:hover {
+          background: white;
+          color: #B45309;
+        }
+
+        .cards-stack {
+          position: relative;
+          height: 600px;
+          max-width: 400px;
+          margin: 0 auto;
+          perspective: 1000px;
+        }
+
+        .swipe-card {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: white;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          overflow: hidden;
+          transition: transform 0.3s ease, opacity 0.3s ease;
+          user-select: none;
+        }
+
+        .swipe-indicator {
+          position: absolute;
+          top: 50px;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-weight: bold;
+          font-size: 1.2rem;
+          z-index: 20;
+          animation: pulse 0.5s ease-in-out;
+        }
+
+        .swipe-indicator.accept {
+          right: 20px;
+          background: rgba(209, 207, 100, 0.9);
+          color: white;
+        }
+
+        .swipe-indicator.decline {
+          left: 20px;
+          background: rgba(194, 96, 96, 0.9);
+          color: white;
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+        }
+
+        .card-image-container {
+          position: relative;
+          height: 50%;
+          overflow: hidden;
+        }
+
+        .card-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .image-gradient {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 50%;
+          background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        }
+
+        .rent-overlay {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          background: rgba(180, 83, 9, 0.9);
+          color: white;
+          padding: 8px 15px;
+          border-radius: 20px;
+          font-weight: bold;
+          font-size: 1.1rem;
+        }
+
+        .card-basic-info {
+          position: absolute;
+          bottom: 15px;
+          left: 20px;
+          color: white;
+          z-index: 10;
+        }
+
+        .card-basic-info h2 {
+          margin: 0 0 5px 0;
+          font-size: 1.5rem;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .location {
+          margin: 0;
+          opacity: 0.9;
+          font-size: 0.9rem;
+        }
+
+        .card-details {
+          padding: 20px;
+          height: 50%;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .description {
+          color: #4B5563;
+          line-height: 1.5;
+          margin: 0;
+        }
+
+        .preferences h4 {
+          margin: 0 0 10px 0;
+          color: #B45309;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .preference-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .preference-tag {
+          background: rgba(180, 83, 9, 0.1);
+          color: #B45309;
+          padding: 4px 10px;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          border: 1px solid rgba(180, 83, 9, 0.3);
+        }
+
+        .owner-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          margin-top: auto;
+          padding-top: 15px;
+          border-top: 1px solid #E5E7EB;
+        }
+
+        .owner-details h4 {
+          margin: 0 0 5px 0;
+          color: #B45309;
+          font-size: 0.9rem;
+        }
+
+        .owner-details p {
+          margin: 2px 0;
+          color: #4B5563;
+          font-size: 0.9rem;
+        }
+
+        .contact {
+          font-size: 0.8rem !important;
+          color: #6B7280 !important;
+        }
+
+        .action-buttons {
+          display: flex;
+          gap: 15px;
+        }
+
+        .decline-btn, .accept-btn {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          border: none;
+          font-size: 1.5rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .decline-btn {
+          background: linear-gradient(135deg, #8f4747, #db6a6a);
+          color: white;
+        }
+
+        .accept-btn {
+          background: linear-gradient(135deg, #ce9b4f, #cfa961);
+          color: white;
+        }
+
+        .decline-btn:hover, .accept-btn:hover {
+          transform: scale(1.1);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .swipe-instructions {
+          display: flex;
+          justify-content: center;
+          gap: 40px;
+          margin-top: 30px;
+          color: white;
+          font-weight: 500;
+        }
+
+        .instruction {
+          opacity: 0.9;
+          font-size: 0.95rem;
+          padding: 8px 15px;
+          background: rgba(255,255,255,0.1);
+          border-radius: 20px;
+          backdrop-filter: blur(10px);
+        }
+
+        .instruction.decline {
+          border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .instruction.accept {
+          border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .loading-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #FDE68A 0%);
+          color: white;
+        }
+
+        .loading-spinner {
+          width: 50px;
+          height: 50px;
+          border: 3px solid rgba(255,255,255,0.3);
+          border-top: 3px solid white;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        .end-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #FDE68A 0%);
+          color: white;
+          text-align: center;
+          gap: 20px;
+        }
+
+        .view-matches-btn, .list-room-btn {
+          padding: 15px 30px;
+          border-radius: 25px;
+          border: none;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+        }
+
+        .view-matches-btn {
+          background: linear-gradient(135deg, #dfd883);
+          color: white;
+        }
+
+        .list-room-btn {
+          background: white;
+          color: #B45309;
+        }
+
+        .view-matches-btn:hover, .list-room-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .matches-container {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #FDE68A 0%);
+          padding: 20px;
+        }
+
+        .matches-header {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-bottom: 30px;
+          color: white;
+        }
+
+        .back-btn {
+          background: rgba(255,255,255,0.2);
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+          background: rgba(255,255,255,0.3);
+        }
+
+        .matches-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .match-card {
+          background: white;
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+          transition: transform 0.3s ease;
+        }
+
+        .match-card:hover {
+          transform: translateY(-5px);
+        }
+
+        .match-card img {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+        }
+
+        .match-info {
+          padding: 20px;
+        }
+
+        .match-info h3 {
+          margin: 0 0 10px 0;
+          color: #B45309;
+        }
+
+        .match-info p {
+          margin: 5px 0;
+          color: #4B5563;
+        }
+
+        .match-rent {
+          font-weight: bold;
+          color: #B45309 !important;
+          font-size: 1.1rem;
+        }
+
+        .contact-match-btn {
+          background: linear-gradient(135deg, #F59E0B, #B45309);
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 20px;
+          cursor: pointer;
+          font-weight: 600;
+          width: 100%;
+          margin-top: 15px;
+          transition: all 0.3s ease;
+        }
+
+        .contact-match-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 480px) {
+          .swipe-container {
+            padding: 15px;
+          }
+
+          .header h1 {
+            font-size: 1.5rem;
+          }
+
+          .header-controls {
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          .cards-stack {
+            height: 500px;
+          }
+
+          .swipe-instructions {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+          }
+
+          .action-buttons {
+            gap: 10px;
+          }
+
+          .decline-btn, .accept-btn {
+            width: 45px;
+            height: 45px;
+            font-size: 1.3rem;
+          }
+        }

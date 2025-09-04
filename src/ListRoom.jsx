@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./ListRoom.css";
 
 const dealBreakerOptions = [
@@ -10,210 +10,262 @@ const dealBreakerOptions = [
 
 export default function ListRoom() {
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 7;
   const [selectedDealBreakers, setSelectedDealBreakers] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState("");
+  const [formData, setFormData] = useState({
+    roomTitle: "",
+    roomDetails: "",
+    roomPhoto: null,
+    location: "",
+    rent: "",
+    tiffinServices: ""
+  });
 
-  useEffect(() => {
-    updateProgress();
-  }, [currentStep]);
+  const totalSteps = 7;
+
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+    setErrors(""); // clear error when user types
+  };
 
   const handleDealBreakerChange = (value) => {
-    setSelectedDealBreakers((prev) => {
-      if (prev.includes(value)) {
-        return prev.filter((item) => item !== value);
-      } else {
-        return [...prev, value];
-      }
-    });
+    setSelectedDealBreakers((prev) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    );
+    setErrors(""); 
   };
 
-  const updateProgress = () => {
-    const progress = (currentStep / totalSteps) * 100;
-    document.getElementById("progress-fill").style.width = progress + "%";
-    document.getElementById("current-step").textContent = currentStep;
-  };
-
+  // ✅ Validation per step
   const validateStep = (step) => {
-    const requiredFields = {
-      1: ["roomTitle"],
-      2: ["roomDetails"],
-      3: ["roomPhoto"],
-      4: ["location"],
-      5: ["rent"],
-      7: [],
-    };
-
-    const fields = requiredFields[step] || [];
-    for (let field of fields) {
-      const element = document.getElementById(field);
-      if (!element.value.trim()) {
-        element.focus();
-        element.style.borderColor = "#e00e0eff";
-        setTimeout(() => {
-          element.style.borderColor = "";
-        }, 2000);
-        return false;
-      }
-    }
-
-    if (step === 7 && selectedDealBreakers.length === 0) {
-      alert("Please select at least one deal breaker!");
+    if (step === 1 && !formData.roomTitle.trim()) {
+      setErrors("Please enter a room title.");
       return false;
     }
-
+    if (step === 2 && !formData.roomDetails.trim()) {
+      setErrors("Please describe your room.");
+      return false;
+    }
+    if (step === 3 && !formData.roomPhoto) {
+      setErrors("Please upload a photo.");
+      return false;
+    }
+    if (step === 4 && !formData.location.trim()) {
+      setErrors("Please enter a location.");
+      return false;
+    }
+    if (step === 5 && !formData.rent.trim()) {
+      setErrors("Please enter the rent.");
+      return false;
+    }
+    if (step === 7 && selectedDealBreakers.length === 0) {
+      setErrors("Please select at least one deal breaker.");
+      return false;
+    }
     return true;
   };
 
   const nextStep = () => {
-    if (!validateStep(currentStep)) return;
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
+    if (validateStep(currentStep)) {
+      setErrors(""); // clear error if valid
+      if (currentStep < totalSteps) {
+        setCurrentStep(currentStep + 1);
+      }
     }
   };
 
   const prevStep = () => {
     if (currentStep > 1) {
+      setErrors(""); // clear error when going back
       setCurrentStep(currentStep - 1);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validateStep(7)) return;
+  const handleSubmit = () => {
+    if (validateStep(7)) {
+      const finalData = {
+        ...formData,
+        selectedDealBreakers
+      };
+      console.log("Form submitted:", finalData);
+      setIsSubmitted(true);
 
-    const formData = {
-      roomTitle: document.getElementById("roomTitle").value,
-      roomDetails: document.getElementById("roomDetails").value,
-      roomPhoto: document.getElementById("roomPhoto").files[0],
-      location: document.getElementById("location").value,
-      rent: document.getElementById("rent").value,
-      tiffinServices: document.getElementById("tiffinServices").value,
-      selectedDealBreakers,
-    };
-
-    console.log("Form submitted:", formData);
-    alert("Room listed successfully!");
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setCurrentStep(1);
+        setFormData({
+          roomTitle: "",
+          roomDetails: "",
+          roomPhoto: null,
+          location: "",
+          rent: "",
+          tiffinServices: ""
+        });
+        setSelectedDealBreakers([]);
+        setErrors("");
+      }, 3000);
+    }
   };
 
-  return (
-    <div className="form-container">
-      <div className="form-header">
-        <h2>List Your Room</h2>
-        <div className="step-counter">
-          Step <span id="current-step">1</span> of <span id="total-steps">{totalSteps}</span>
-        </div>
-        <div className="progress-bar">
-          <div className="progress-fill" id="progress-fill" style={{ width: "14.28%" }}></div>
+  const progress = (currentStep / totalSteps) * 100;
+
+  // ✅ Success screen
+  if (isSubmitted) {
+    return (
+      <div className="lr-container">
+        <div className="lr-success">
+          <div className="lr-success-icon">🎉</div>
+          <h2 className="lr-success-title">Room Listed Successfully!</h2>
+          <p className="lr-success-message">
+            Your room has been added to our listings. Potential roommates will be able to see it soon!
+          </p>
+          <div className="lr-success-bar"></div>
         </div>
       </div>
+    );
+  }
 
-      <form id="step-form" onSubmit={handleSubmit}>
-        {/* Step 1 */}
-        {currentStep === 1 && (
-          <div className="form-step active">
-            <div className="step-content">
-              <h3 className="step-title">What's your room called?</h3>
-              <p className="step-subtitle">Give it a title that stands out!</p>
-              <input type="text" id="roomTitle" placeholder="e.g., Cozy Corner Room" required />
-              <div className="button-group">
-                <button type="button" className="btn btn-next" onClick={nextStep}>Next</button>
+  return (
+    <div className="lr-container">
+      <div className="lr-card">
+        {/* Header */}
+        <div className="lr-header">
+          <h2 className="lr-title">List Your Room</h2>
+          <div className="lr-step-counter">
+            Step {currentStep} of {totalSteps}
+          </div>
+          <div className="lr-progress">
+            <div
+              className="lr-progress-fill"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Form Steps */}
+        <div className="lr-content">
+          {/* Step 1 */}
+          {currentStep === 1 && (
+            <div className="lr-step">
+              <h3 className="lr-step-title">What's your room called?</h3>
+              <p className="lr-step-subtitle">Give it a title that stands out!</p>
+              <input
+                type="text"
+                value={formData.roomTitle}
+                onChange={(e) => handleInputChange("roomTitle", e.target.value)}
+                placeholder="e.g., Cozy Corner Room"
+                className="lr-input"
+              />
+            </div>
+          )}
+
+          {/* Step 2 */}
+          {currentStep === 2 && (
+            <div className="lr-step">
+              <h3 className="lr-step-title">Tell us more!</h3>
+              <p className="lr-step-subtitle">Describe what makes your room special</p>
+              <textarea
+                value={formData.roomDetails}
+                onChange={(e) => handleInputChange("roomDetails", e.target.value)}
+                placeholder="Describe your room, amenities, and what makes it unique..."
+                className="lr-textarea"
+                rows="4"
+              />
+            </div>
+          )}
+
+          {/* Step 3 */}
+          {currentStep === 3 && (
+            <div className="lr-step">
+              <h3 className="lr-step-title">Show it off!</h3>
+              <p className="lr-step-subtitle">Upload photos of your room</p>
+              <div className="lr-file-upload">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleInputChange("roomPhoto", e.target.files[0])}
+                  className="lr-file-input"
+                  id="photo-upload"
+                />
+                <label htmlFor="photo-upload" className="lr-file-label">
+                  {formData.roomPhoto ? formData.roomPhoto.name : "Choose Photo"}
+                </label>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Step 2 */}
-        {currentStep === 2 && (
-          <div className="form-step active">
-            <div className="step-content">
-              <h3 className="step-title">Tell us more!</h3>
-              <p className="step-subtitle">Describe what makes your room special</p>
-              <textarea id="roomDetails" placeholder="Describe your room..." required></textarea>
-              <div className="button-group">
-                <button type="button" className="btn btn-next" onClick={nextStep}>Next</button>
-                <button type="button" className="btn btn-back" onClick={prevStep}>Back</button>
+          {/* Step 4 */}
+          {currentStep === 4 && (
+            <div className="lr-step">
+              <h3 className="lr-step-title">Where is it?</h3>
+              <p className="lr-step-subtitle">Help people find your space</p>
+              <input
+                type="text"
+                value={formData.location}
+                onChange={(e) => handleInputChange("location", e.target.value)}
+                placeholder="e.g., Sector 17, Rohini"
+                className="lr-input"
+              />
+            </div>
+          )}
+
+          {/* Step 5 */}
+          {currentStep === 5 && (
+            <div className="lr-step">
+              <h3 className="lr-step-title">What's the rent?</h3>
+              <p className="lr-step-subtitle">Set a price for your space!</p>
+              <div className="lr-price">
+                <span className="lr-currency">₹</span>
+                <input
+                  type="number"
+                  value={formData.rent}
+                  onChange={(e) => handleInputChange("rent", e.target.value)}
+                  placeholder="15000"
+                  className="lr-price-input"
+                />
+                <span className="lr-per-month">/month</span>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Step 3 */}
-        {currentStep === 3 && (
-          <div className="form-step active">
-            <div className="step-content">
-              <h3 className="step-title">Show it off!</h3>
-              <p className="step-subtitle">Upload a photos of your room</p>
-              <input type="file" id="roomPhoto" accept="image/*" required />
-              <div className="button-group">
-               <button type="button" className="btn btn-next" onClick={nextStep}>Next</button>
-                <button type="button" className="btn btn-back" onClick={prevStep}>Back</button>
-              </div>
+          {/* Step 6 */}
+          {currentStep === 6 && (
+            <div className="lr-step">
+              <h3 className="lr-step-title">Food nearby?</h3>
+              <p className="lr-step-subtitle">Optional: Mention nearby tiffin services</p>
+              <input
+                type="text"
+                value={formData.tiffinServices}
+                onChange={(e) => handleInputChange("tiffinServices", e.target.value)}
+                placeholder="e.g., Sharma Tiffin, Local Mess"
+                className="lr-input"
+              />
+              <button type="button" onClick={nextStep} className="lr-skip-btn">
+                Skip this step
+              </button>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Step 4 */}
-        {currentStep === 4 && (
-          <div className="form-step active">
-            <div className="step-content">
-              <h3 className="step-title">Where is it? </h3>
-              <p className="step-subtitle">Help people find your space</p>
-              <input type="text" id="location" placeholder="e.g., Address" required />
-              <div className="button-group">
-               <button type="button" className="btn btn-next" onClick={nextStep}>Next</button>
-                <button type="button" className="btn btn-back" onClick={prevStep}>Back</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Step 5 */}
-        {currentStep === 5 && (
-          <div className="form-step active">
-            <div className="step-content">
-              <h3 className="step-title">What's the rent? </h3>
-              <p className="step-subtitle">Set a price for your space</p>
-              <input type="number" id="rent" placeholder="15000" required />
-              <div className="button-group">
-                <button type="button" className="btn btn-next" onClick={nextStep}>Next</button>
-                <button type="button" className="btn btn-back" onClick={prevStep}>Back</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Step 6 */}
-        {currentStep === 6 && (
-          <div className="form-step active">
-            <div className="step-content">
-              <h3 className="step-title">Food nearby? </h3>
-              <p className="step-subtitle">Optional: Mention nearby tiffin services</p>
-              <input type="text" id="tiffinServices" placeholder="e.g., Sharma Tiffin" />
-              <button type="button" className="skip-btn" onClick={nextStep}>Skip this step</button>
-              <div className="button-group">
-               <button type="button" className="btn btn-next" onClick={nextStep}>Next</button>
-                <button type="button" className="btn btn-back" onClick={prevStep}>Back</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Step 7 */}
-        {currentStep === 7 && (
-          <div className="form-step active">
-            <div className="step-content">
-              <h3 className="step-title">What are your deal breakers? </h3>
-              <p className="step-subtitle">Select things you don't want</p>
-              <div className="checkbox-grid">
+          {/* Step 7 */}
+          {currentStep === 7 && (
+            <div className="lr-step">
+              <h3 className="lr-step-title">What are your deal breakers?</h3>
+              <p className="lr-step-subtitle">Select things you don't Want!</p>
+              <div className="lr-checkbox-grid">
                 {dealBreakerOptions.map((option) => (
                   <div
                     key={option}
-                    className={`checkbox-item ${selectedDealBreakers.includes(option) ? "selected" : ""}`}
                     onClick={() => handleDealBreakerChange(option)}
+                    className={`lr-checkbox-item ${
+                      selectedDealBreakers.includes(option) ? "lr-selected" : ""
+                    }`}
                   >
                     <input
                       type="checkbox"
-                      value={option}
                       checked={selectedDealBreakers.includes(option)}
                       readOnly
                     />
@@ -221,20 +273,37 @@ export default function ListRoom() {
                   </div>
                 ))}
               </div>
-              <div className="selected-display">
-                <strong>Selected:</strong>{" "}
-                <span id="selected-display">
-                  {selectedDealBreakers.length > 0 ? selectedDealBreakers.join(", ") : "None"}
-                </span>
-              </div>
-              <div className="button-group">
-                <button type="button" className="btn btn-back" onClick={prevStep}>Back</button>
-                <button type="submit" className="btn btn-submit pulse-animation">List My Room!</button>
-              </div>
+              {selectedDealBreakers.length > 0 && (
+                <div className="lr-selected-display">
+                  <strong>Selected:</strong> {selectedDealBreakers.join(", ")}
+                </div>
+              )}
             </div>
+          )}
+
+          {/*  Error Message */}
+          {errors && <p style={{ color: "red", marginTop: "10px" }}>{errors}</p>}
+
+          {/* Navigation */}
+          <div className="lr-buttons">
+            {currentStep > 1 && (
+              <button type="button" onClick={prevStep} className="lr-back-btn">
+                Back
+              </button>
+            )}
+
+            {currentStep < totalSteps ? (
+              <button type="button" onClick={nextStep} className="lr-next-btn">
+                Next
+              </button>
+            ) : (
+              <button type="button" onClick={handleSubmit} className="lr-submit-btn">
+                List My Room! 
+              </button>
+            )}
           </div>
-        )}
-      </form>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
