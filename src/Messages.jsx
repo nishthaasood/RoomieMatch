@@ -90,6 +90,25 @@ const Messages = ({ setCurrentPage }) => {
             { id: 1, sender: 'other', text: 'Hey! I noticed we both love cooking. What is your favorite cuisine?', time: '2:00 PM', status: 'read' },
             { id: 2, sender: 'me', text: 'I love Italian and Thai food! What about you?', time: '2:05 PM', status: 'read' },
             { id: 3, sender: 'other', text: 'I love cooking too! We should definitely meet up.', time: '1h ago', status: 'delivered' }
+        ],
+        3: [
+            { id: 1, sender: 'other', text: 'Hi there! I love your apartment links, they look perfect!', time: '9:15 AM', status: 'read' },
+            { id: 2, sender: 'me', text: 'Thanks Mansi! I spent a lot of time researching the best neighborhoods.', time: '9:20 AM', status: 'read' },
+            { id: 3, sender: 'other', text: 'That really shows! I especially like the one near the university. The rent seems reasonable too.', time: '9:25 AM', status: 'read' },
+            { id: 4, sender: 'me', text: 'Yes! Plus it has great public transport connections. Are you a student?', time: '9:30 AM', status: 'read' },
+            { id: 5, sender: 'other', text: 'PhD student actually! Working on environmental science. What about you?', time: '9:35 AM', status: 'read' },
+            { id: 6, sender: 'me', text: 'That is so cool! I work in renewable energy consulting.', time: '9:40 AM', status: 'read' },
+            { id: 7, sender: 'other', text: 'Thanks for sharing those apartment links!', time: '3h ago', status: 'delivered' }
+        ],
+        4: [
+            { id: 1, sender: 'me', text: 'Hi Alok! I see you are in the Library. I love that area!', time: '11:00 AM', status: 'read' },
+            { id: 2, sender: 'other', text: 'Hey! Yeah it is amazing here. So much creativity and energy around.', time: '11:05 AM', status: 'read' },
+            { id: 3, sender: 'me', text: 'I can imagine! What kind of art do you do?', time: '11:10 AM', status: 'read' },
+            { id: 4, sender: 'other', text: 'Mainly digital art and some photography. I have a small studio space here.', time: '11:15 AM', status: 'read' },
+            { id: 5, sender: 'me', text: 'That sounds incredible! I would love to see your work sometime.', time: '11:20 AM', status: 'read' },
+            { id: 6, sender: 'other', text: 'Definitely! Speaking of living arrangements, I found a great 2BR place nearby.', time: '11:25 AM', status: 'read' },
+            { id: 7, sender: 'me', text: 'Really? What is the rent split like?', time: '11:30 AM', status: 'read' },
+            { id: 8, sender: 'other', text: 'The rent split sounds fair to me', time: '1d ago', status: 'delivered' }
         ]
     });
 
