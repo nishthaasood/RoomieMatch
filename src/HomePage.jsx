@@ -119,7 +119,9 @@ const HomePage = ({ setCurrentPage }) => {
                 onClick={() => setCurrentPage('signup')}
               > Start Matching Now
               </button>
-              <button className="secondary-hero-btn">
+              <button className="secondary-hero-btn"
+                onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+>
                 <span>How It Works</span>
               </button>
             </div>
