@@ -10,7 +10,7 @@ const Card = ({
   dealbrakers,
   leaseDuration,
   moveinDate,
-  imageURL, // 👈 added prop
+  imageURL,
 }) => {
   return (
     <div className="card-custom">
@@ -71,9 +71,8 @@ const Card = ({
       {/* Actions */}
       <div className="card-actions">
         <div className="action-buttons">
-          <button className="action-btn">👎</button>
-          <button className="action-btn">⭐</button>
-          <button className="action-btn">👍</button>
+          <button className="action-btn">❌</button>
+          <button className="action-btn">❤️</button>
         </div>
         <button className="message-btn">Message</button>
       </div>

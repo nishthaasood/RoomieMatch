@@ -24,7 +24,7 @@ function App() {
       case 'signup':
         return <SignupPage setCurrentPage={setCurrentPage} setUserData={setRegisterData}/>;
       case 'profile':
-        return <Profile setCurrentPage={setCurrentPage} accessToken={accessToken}/>;
+        return <Profile setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} accessToken={accessToken} registerData={registerData}/>;
       case 'matches':
         return <Matches setCurrentPage={setCurrentPage} />;
       case 'listARoom': 
