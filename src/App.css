@@ -27,11 +27,11 @@ html, body {
 .app > .login-page .auth-container,
 .app > .signup-page .auth-container {
   align-items: flex-start;
-  min-height: calc(100vh - 50px); /* Adjust for navbar height */
-  padding-top: 40px; /* Optional: adds space below navbar */
+  min-height: calc(100vh - 50px); 
+  padding-top: 40px; 
 }
 
-/* Navbar Styles */
+
 .navbar {
   position: sticky;
   top: 0;
@@ -104,7 +104,7 @@ html, body {
   font-size: 20px;
 }
 
-/* Button Styles */
+
 button,
 .login-btn,
 .signup-btn{
@@ -152,12 +152,12 @@ button,
 .modern-hero {
   position: relative;
   width: 100%;
-  min-height: 90vh; /* ensures hero takes full screen height */
+  min-height: 90vh; 
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 50px 20px;
-  background: #f9f9f9; /* fallback background */
+  background: #f9f9f9; 
   overflow: hidden;
   z-index: 1;
   margin-top: 2400px;
@@ -344,9 +344,10 @@ button,
   gap: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 160px; /* same width for both */
+  min-width: 160px; 
   text-align: center;
 }
+/* Home Page */
 .hero-buttons {
   display: flex;
   gap: 20px;
@@ -376,7 +377,7 @@ button,
   box-shadow: #97341B;
   border-color: #c7d2fe;
 }
-/* Sign Up Button */
+
 .signup-btn {
   background: linear-gradient(135deg, #e69da6, #934790);
   color: #fff;
@@ -429,16 +430,53 @@ button,
 }
 
 .app-interface {
-  padding: 24px 20px;
+  padding: 16px 12px;
   height: 100%;
   background: linear-gradient(135deg, #fef7ff, #f0f9ff);
+  display: flex; 
+  flex-direction: column; 
+}
+.phone-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  overflow: hidden;
+  animation: fadeInUp 1s ease-out 0.8s both; /* Animation for image */
+}
+
+.process-diagram {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.process-diagram:hover {
+  transform: scale(1.02);
 }
 
 .interface-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 8px; /* Reduce from 16px to 8px */
+  animation: slideInDown 0.6s ease-out 0.6s both;
+}
+
+
+/* Fade in animation for image */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .header-title {
@@ -455,7 +493,7 @@ button,
   animation: pulse 2s ease-in-out infinite;
 }
 
- /* Modern Features Section */
+ 
 .modern-features {
   padding: 50px 0;
   background-color: #f9f9f9;
@@ -572,6 +610,15 @@ button,
   transition: all 0.3s ease;
   position: relative;
   z-index: 2;
+  background: linear-gradient(135deg, #97341B, #62200C);
+  color: white !important;
+}
+
+.feature-icon svg {
+  color: inherit !important;
+  display: block !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
 }
 
 .modern-feature:hover .feature-icon {
@@ -1623,7 +1670,6 @@ button,
 }
 
 /* Authentication Pages Styles */
-/* Authentication Pages Styles */
 .login-page,
 .signup-page {
   min-height: 100vh;
@@ -2514,7 +2560,7 @@ button:focus,
   margin-bottom: 32px;
 }
 
-/* Grid layout */
+
 .matches-grid {
   display: grid;
   gap: 24px;
@@ -2545,7 +2591,7 @@ button:focus,
   }
 }
 
-/* No matches */
+
 .no-matches {
   text-align: center;
   font-size: 1.1rem;
@@ -2567,7 +2613,7 @@ button:focus,
   margin-right: 12px;
   border: 2px solid #eee;
 }
-/* Clean Find Room Styles */
+
 .find-room-clean {
   max-width: 1200px;
   margin: 80px auto 0;
@@ -2593,7 +2639,6 @@ button:focus,
   font-size: 1.1rem;
 }
 
-/* Simple Search Bar */
 .search-bar {
   display: flex;
   gap: 16px;
@@ -2742,7 +2787,6 @@ button:focus,
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Room Info */
 .room-info {
   padding: 20px;
 }
@@ -2784,7 +2828,6 @@ button:focus,
   font-weight: 600;
 }
 
-/* Room Bottom */
 .room-bottom {
   display: flex;
   justify-content: space-between;
