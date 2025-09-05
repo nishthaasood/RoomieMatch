@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import Navbar from './Navbar';
 
-const LoginPage = ({ setCurrentPage,setIsLogin, setAccessToken }) => {
+const LoginPage = ({ setCurrentPage,setIsLogin, setAccessToken,setRegisterData }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -65,6 +65,14 @@ const LoginPage = ({ setCurrentPage,setIsLogin, setAccessToken }) => {
         console.log(data["data"]["token"])
         setAccessToken(data["data"]["token"])
         if (data["statusCode"]==200) {
+          console.log(data["data"]["user"])
+          setRegisterData({
+            firstName:data["data"]["user"]["name"].split(' ')[0],
+            lastName:data["data"]["user"]["name"].split(' ')[1],
+            email:data["data"]["user"]["email"],
+            age:data["data"]["user"]["age"],
+            phone:data["data"]["user"]["phoneNumber"]
+          })
           setIsLogin(true)
           alert('Login successful! Welcome to RoomieMatch!');
           setCurrentPage('profile');

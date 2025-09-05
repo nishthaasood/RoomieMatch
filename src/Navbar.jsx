@@ -55,7 +55,7 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
         >
           Find a Room
         </a>
-        
+        {isLogin &&
         <a 
           href="#"
           className={currentPage === 'profile' ? 'active' : ''}
@@ -65,7 +65,7 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
           }}
         >
           Profile
-        </a>
+        </a>}
       </div>
       
       {!isLogin && (
