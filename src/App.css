@@ -7,7 +7,8 @@
 
 html, body {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  
   overflow-x: hidden;
   margin: 0;
   padding: 0;
@@ -18,9 +19,8 @@ html, body {
   background: #f9f9f9;
   line-height: 1.6;
   min-height: 100vh;
-  padding-top: 40px;
   position: relative;
-  width: 100lvw
+  width: 100vw
 }
 
 /* Adjusted Auth Container for Login and Signup Pages -- on removing the login page has issues */
@@ -160,7 +160,6 @@ button,
   background: #f9f9f9; 
   overflow: hidden;
   z-index: 1;
-  margin-top: 2400px;
 }
 
 .hero-background {
@@ -825,7 +824,6 @@ button,
   padding-top: 0;
   display: flex;
   flex-direction: column;
-  margin-top: 650px;
   overflow-y: auto;
 }
 
@@ -840,7 +838,7 @@ button,
 }
 
 .profile-page footer{
-  margin-top: 600px;
+  margin-top: 300px;
 }
 
 .profile-header {
@@ -1020,22 +1018,18 @@ button,
 .form-textarea,
 .form-select {
   padding: 14px 16px;
-  border: 2px solid #bb7d5f !important;
+  border: 2px solid #bb7d5f;
   border-radius: 12px;
   font-size: 16px;
   transition: all 0.3s ease;
-  background: white !important;
+  background: #fafafa;
   font-family: inherit;
   color: #3e1105;
-  width: 100%;
-  box-sizing: border-box;
-  min-height: 52px;
-  height: 52px;
 }
 
 .form-input::placeholder,
 .form-textarea::placeholder {
-  color: #f9f9f9;
+  color: #8B5A3C;
   opacity: 0.8;
 }
 
@@ -1067,7 +1061,7 @@ button,
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  background: #f9f9f9 !important;
+  background: #fafafa;
   border: 2px solid #bb7d5f;
   border-radius: 10px;
   cursor: pointer;
@@ -1078,7 +1072,7 @@ button,
 }
 
 .checkbox-item:hover {
-  background: #f2f2f2;
+  background: #f0f0f0;
   border-color: #97341B;
   transform: translateY(-1px);
 }
@@ -1669,6 +1663,7 @@ button,
   font-style: italic;
 }
 
+
 /* Authentication Pages Styles */
 .login-page,
 .signup-page {
@@ -1771,6 +1766,17 @@ button,
   margin-bottom: 10px;
   font-size: 15px;
   letter-spacing: 0.5px;
+}
+
+.form-input {
+  padding: 16px 20px;
+  border: 2px solid #bb7d5f;
+  border-radius: 16px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  color: #3e1105;
+  font-weight: 500;
 }
 
 .form-input::placeholder {
@@ -2448,6 +2454,10 @@ button:focus,
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   border: 1px solid #e5e7eb;
   color: #4b4948;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .card-custom:hover {
@@ -2500,7 +2510,7 @@ button:focus,
 
 /* Buttons row */
 .card-actions {
-  margin-top: 16px;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -2512,7 +2522,7 @@ button:focus,
 }
 
 .action-btn {
-  width: 38px;
+  flex: 1; /* each button takes equal share */
   height: 38px;
   border-radius: 12px;
   background: #f3f4f6;
@@ -2546,25 +2556,48 @@ button:focus,
 
 /* Whole page wrapper */
 .matches-page {
-  margin-top: 50px;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* keep content stuck to the top */
+  padding-top: 80px;         /* match navbar height */
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
-/* Title */
-.matches-title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
+.matches-top{
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers title initially */
+  position: relative;      /* lets us position the button */
+  margin-bottom: 24px;
+  width: 100vw;
+  gap: 2%;
+}
+.matches-title,
+.matches-liked {
+  flex: 1;            /* each takes up half */
+  text-align: center; /* center the text inside */
+  padding: 12px 0;    /* adjust for spacing */
+  font-size: 1.2rem;  /* optional: bigger text */
+  border: none;
+  cursor: pointer; 
+  background: #eadab6; /* just sample background */
+  transition: background 0.3s ease;
   color: #1f2937;
-  margin-bottom: 32px;
+  margin: 0 20px;
+}
+.matches-title:hover,
+.matches-liked:hover {
+  background: #ba9f68;   /* simple hover */
 }
 
 
 .matches-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  justify-content: flex-start;  /* or center if you prefer */
+  width: 100%;
 }
 
 /* Loading state */
@@ -2613,7 +2646,7 @@ button:focus,
   margin-right: 12px;
   border: 2px solid #eee;
 }
-
+/* Clean Find Room Styles */
 .find-room-clean {
   max-width: 1200px;
   margin: 80px auto 0;
@@ -2639,6 +2672,7 @@ button:focus,
   font-size: 1.1rem;
 }
 
+/* Simple Search Bar */
 .search-bar {
   display: flex;
   gap: 16px;
@@ -2787,6 +2821,7 @@ button:focus,
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Room Info */
 .room-info {
   padding: 20px;
 }
@@ -2828,6 +2863,7 @@ button:focus,
   font-weight: 600;
 }
 
+/* Room Bottom */
 .room-bottom {
   display: flex;
   justify-content: space-between;

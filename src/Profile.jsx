@@ -1,8 +1,9 @@
 import Footer from './Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
+import { register } from 'swiper/element';
 
-const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
+const Profile = ({ setCurrentPage, setIsLogin, accessToken, registerData }) => {
   // ✅ Define options here so they don't crash your component
   const dealBreakerOptions = [
     "Smoking",
@@ -22,6 +23,7 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
     "Lack of Communication",
     "Snoring"
   ];
+  const [avatarUrl, setAvatarUrl] = useState(null)
 
   const interestOptions = [
   "Technology",
@@ -44,47 +46,43 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
   "Writing/Blogging",
   "Gardening",
   "DIY Projects"
-  ];
+];
 
-  const [activeTab, setActiveTab] = useState('personal');
-  const [isEditing, setIsEditing] = useState(false);
-  const [showSignOutModal, setShowSignOutModal] = useState(false);
+const [activeTab, setActiveTab] = useState('personal');
+const [isEditing, setIsEditing] = useState(false);
+const [showSignOutModal, setShowSignOutModal] = useState(false);
 
-  const [profileData, setProfileData] = useState({
-    firstName: 'Rohit',
-    lastName: 'Sharma',
-    email: 'sharma47@gmail.com',
-    age: '19',
-    phone: '9876543210',
-    bio: 'I am a 2nd year IT student.',
-    occupation: 'Student',
-    university: 'Bhagwan Parshuram Institute of Technology',
-    budget: '7500',
-    location: 'Rohini Sector 7, Delhi',
-    
-    // Roommate preferences
-    dealBreakers: ['Smoking', 'Loud Music After 10 PM', 'Pets'],
-    preferences: {
-      cleanliness: 'Very Clean',
-      socialLevel: 'Moderate',
-      guestPolicy: 'Occasional Guests OK',
-      workSchedule: 'Day Shift',
-      lifestyle: 'Active',
-      dietaryRestrictions: 'None'
-    },
-    
-    // Interests and hobbies
-    interests: ['Technology', 'Hiking', 'Cooking', 'Reading', 'Gaming'],
-    
-    // Availability
-    moveInDate: '2024-03-01',
-    leaseDuration: '12 months'
-  });
 
-  const [formData, setFormData] = useState(profileData);
+const [profileData, setProfileData] = useState({
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  age: "",
+  occupation: "",
+  university: "",
+  bio: "",
+  budget: "",
+  location: "",
+  moveInDate: "",
+  leaseDuration: "",
+  dealBreakers: [],
+  interests: [],
+  preferences: {
+    cleanliness: "",
+    socialLevel: "",
+    guestPolicy: "",
+    workSchedule: ""
+  }
+});
 
-  // Handle input changes
-  const handleChange = (e) => {
+
+const [formData, setFormData] = useState(profileData);
+
+
+
+// Handle input changes
+const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes('.')) {
       const [parent, child] = name.split('.');
@@ -102,87 +100,117 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
       }));
     }
   };
-
-  const [avatarUrl, setAvatarUrl] = useState("public/avatar.jpg")
+  
   const formPayload = new FormData();
+  
   const handleSave = async () => {
-    try {
+  try {
+    const mergedData = { ...profileData, ...formData }; // merge old + new
+    console.log()
+    const formPayload = new FormData();
+    formPayload.append("name", `${mergedData.firstName} ${mergedData.lastName}`);
+    formPayload.append("age", parseInt(mergedData.age, 10));
+    formPayload.append("phoneNumber", mergedData.phone);
+    formPayload.append("budget", parseInt(mergedData.budget, 10));
+    formPayload.append("leaseDuration", parseInt(mergedData.leaseDuration, 10)||6);
+    formPayload.append("moveinDate", new Date(mergedData.moveInDate).toISOString()|| new Date('2025-01-12').toISOString());
+    formPayload.append("description", mergedData.bio);
+    formPayload.append("dealbrakers", JSON.stringify(mergedData.dealBreakers));
+    formPayload.append("interests", JSON.stringify(mergedData.interests));
 
-      // Map frontend state to backend API keys
-      formPayload.append("name", `${formData.firstName} ${formData.lastName}`);
-      formPayload.append("age", parseInt(formData.age, 10));
-      formPayload.append("phoneNumber", formData.phone);
-      formPayload.append("budget", parseInt(formData.budget, 10));
-      formPayload.append("leaseDuration", parseInt(formData.leaseDuration, 10));
-      formPayload.append("moveinDate", new Date(formData.moveInDate).toISOString());
-      formPayload.append("description", formData.bio);
-      // Arrays need to be stringified or appended one by one
-      formPayload.append("dealbrakers",JSON.stringify(formData.dealBreakers))
-      formPayload.append("interests",JSON.stringify(formData.interests))
-
-      // Avatar file (only if changed)
-      if (formData.avatarFile) {
-        formPayload.append("avatar", formData.avatarFile);
-      }
-
-      // Add auth token
-      
-      formPayload.append("accessToken", accessToken);
-
-      console.log("form Pay load :: ",formPayload)
-      console.log("access token :: ",accessToken)
-      // Call API
-      const res = await fetch("https://roomiebackend-production.up.railway.app/api/user/updateUser", {
-        method: "PUT", // or POST depending on your API
-        body: formPayload,
-        // headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      console.log("data :: ", data)
-      console.log("avatar :: ", data["data"]["avatar"])
-
-      setAvatarUrl(data["data"]["avatar"])
-      if (res.ok) {
-        console.log("Profile updated:", data);
-        setProfileData(formData);
-        setIsEditing(false);
-      } else {
-        console.error("Update failed:", data.message || data);
-        alert("Failed to update profile!");
-      }
-    } catch (err) {
-      console.error("Error updating profile:", err);
-      alert("Something went wrong while updating!");
+    if (mergedData.avatarFile) {
+      formPayload.append("avatar", mergedData.avatarFile);
     }
-  };
- 
 
+    formPayload.append("accessToken", accessToken);
+
+    const res = await fetch("https://roomiebackend-production.up.railway.app/api/user/updateUser", {
+      method: "PUT",
+      body: formPayload,
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      console.log("Profile updated:", data);
+      setProfileData(mergedData); // update with mergedData
+      setIsEditing(false);
+    } else {
+      console.error("Update failed:", data.message || data);
+      alert("Failed to update profile!");
+    }
+  } catch (err) {
+    console.error("Error updating profile:", err);
+    alert("Something went wrong while updating!");
+  }
+};
+
+  
+  
   // Handle multiple select (checkboxes)
   const handleMultiSelect = (field, value) => {
     setFormData(prev => ({
       ...prev,
       [field]: prev[field].includes(value) 
-        ? prev[field].filter(item => item !== value)
-        : [...prev[field], value]
+      ? prev[field].filter(item => item !== value)
+      : [...prev[field], value]
     }));
   };
-
+  
   const handleEdit = () => setIsEditing(true);
   const handleCancel = () => {
     setIsEditing(false);
     setFormData(profileData);
   };
-
+  
   // const handleSave = () => {
-  //   setIsEditing(false);
-  //   setProfileData(formData);
-  // };
+    //   setIsEditing(false);
+    //   setProfileData(formData);
+    // };
+    
+    const handleSignOut = () => {
+      setIsLogin(false);
+      setCurrentPage('home');
+      setShowSignOutModal(false);
+    };
+    
+    const [userData, setUserData] = useState({})
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const userRes = await fetch("https://roomiebackend-production.up.railway.app/api/user/getUser", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ accessToken }),
+          });
 
-  const handleSignOut = () => {
-    setIsLogin(false);
-    setCurrentPage('home');
-    setShowSignOutModal(false);
-  };
+          const data = await userRes.json();
+          setUserData(data);
+          console.log("data from profile " , data)
+          setAvatarUrl(data?.data?.avatar || null);
+          console.log("data is ",data.data.name)
+          // Update profileData with API info
+          setProfileData(prev => ({
+            ...prev,
+            email:registerData.email,
+            firstName:registerData.firstName,
+            lastName:registerData.lastName,
+            occupation:'student',
+            university:'college',
+            bio: data?.data?.description || prev.bio,
+            age: data?.data?.age || registerData.age, 
+            phone: data?.data?.phoneNumber || registerData.phone,
+            budget: data?.data?.budget || prev.budget,
+            dealBreakers: data?.data?.dealbrakers || prev.dealBreakers,
+            interests: data?.data?.interests || prev.interests,
+          }));
+        } catch (err) {
+          console.error("Error fetching user:", err);
+        }
+      };
+
+      fetchUser();
+    }, [accessToken]);
 
   return (
     <div className="profile-page">
@@ -329,7 +357,7 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
                         <input
                           type="text"
                           name="occupation"
-                          value={formData.occupation}
+                          value='Student'
                           onChange={handleChange}
                           className="form-input"
                           placeholder="Software Engineer"
@@ -339,15 +367,17 @@ const Profile = ({ setCurrentPage, setIsLogin, accessToken }) => {
 
                     {/* University */}
                     <div className="form-group">
+                    
                       <label className="form-label">University/School</label>
+                      {isEditing &&
                       <input
                         type="text"
                         name="university"
-                        value={formData.university}
+                        value='ABC University'
                         onChange={handleChange}
                         className="form-input"
-                        placeholder="Bhagwan Parshuram Institute of Technology"
-                      />
+                        placeholder="Stanford University"
+                      />}
                     </div>
 
                     {/* Bio */}
