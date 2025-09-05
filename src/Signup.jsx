@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 
-const SignupPage = ({ setCurrentPage, setRegisterData }) => {
+const SignupPage = ({ setCurrentPage, setRegisterData,setIsLogin, setAccessToken }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -81,7 +81,13 @@ const SignupPage = ({ setCurrentPage, setRegisterData }) => {
   const handleSubmit =async (e) => {
     e.preventDefault();
     console.log(formData)
-    setRegisterData(formData)
+    setRegisterData({
+            firstName:formData["firstName"],
+            lastName:formData["lastName"],
+            email:formData["email"],
+            age:formData["age"],
+            phone:formData["phone"]
+          })
     let response;
     if (validateForm()) {
       try {
@@ -101,10 +107,13 @@ const SignupPage = ({ setCurrentPage, setRegisterData }) => {
         console.log("unable to register")
       }
       const data = await response.json();
-      console.log("user created",data)
+      console.log("user created",data?.data?.user?.accessToken)
+      setAccessToken(data?.data?.user?.accessToken)
       console.log('Signup attempt:', formData);
       alert('Account created successfully! Please check your email for verification.');
-      setCurrentPage('login');
+      setCurrentPage('profile');
+
+      setIsLogin(true)
     }
   };
 

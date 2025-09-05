@@ -11,18 +11,8 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
       </div>
       
       <div className="nav-links">
-        <a 
-          href="#"
-          className={currentPage === 'home' ? 'active' : ''}
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('home');
-          }}
-        >
-          Home
-        </a>
         
-        <a 
+        {isLogin && <a 
           href="#"
           className={currentPage === 'messages' ? 'active' : ''}
           onClick={(e) => {
@@ -31,9 +21,9 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
           }}
         >
           Messages
-        </a>
+        </a>}
         
-        <a 
+        {isLogin && <a 
           href="#"
           className={currentPage === 'matches' ? 'active' : ''}
           onClick={(e) => {
@@ -42,9 +32,10 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
           }}
         >
           Find Roommate
-        </a>
+        </a>}
         
         {/* Find a Room */}
+        {isLogin&& 
         <a 
           href="#"
           className={currentPage === 'findRoom' ? 'active' : ''}
@@ -54,7 +45,7 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
           }}
         >
           Find a Room
-        </a>
+        </a>}
         {isLogin &&
         <a 
           href="#"

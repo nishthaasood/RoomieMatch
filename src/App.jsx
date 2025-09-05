@@ -23,7 +23,7 @@ function App() {
       case 'login':
         return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} setRegisterData={setRegisterData} />;
       case 'signup':
-        return <SignupPage setCurrentPage={setCurrentPage} setUserData={setRegisterData}/>;
+        return <SignupPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} setRegisterData={setRegisterData}/>;
       case 'profile':
         return <Profile setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} accessToken={accessToken} registerData={registerData}/>;
       case 'matches':

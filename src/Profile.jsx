@@ -186,6 +186,7 @@ const handleChange = (e) => {
 
           const data = await userRes.json();
           setUserData(data);
+          console.log("data from profile " , data)
           setAvatarUrl(data?.data?.avatar || null);
           console.log("data is ",data.data.name)
           // Update profileData with API info
