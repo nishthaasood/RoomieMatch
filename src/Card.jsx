@@ -11,10 +11,33 @@ const Card = ({
   leaseDuration,
   moveinDate,
   imageURL,
+  id,
+  accessToken,
+  setLikedUser
 }) => {
   const [toShow, setToShow] = useState(true);
+  const [liked, setLiked] = useState(false)
+  const handleLiked =async()=>{
+    setLiked(true);
+    const res = await fetch(`https://roomiebackend-production.up.railway.app/api/user/likeRoomie`, {
+      method:"PUT",
+      body:JSON.stringify({
+        id:id,
+        accessToken:accessToken
+      }),
+      headers:{
+        "Content-Type": "application/json"
+      }
+    })
+    const data = await res.json()
+    console.log(data.likedRoomies)
+    console.log("liked")
+    setLikedUser(data.likedRoomies)
+    setToShow(false)
 
-  if (!toShow) return null; // completely removes the card when ❌ is clicked
+  }
+
+  if (!toShow) return null;
 
   return (
     <div className="card-custom">
@@ -78,7 +101,7 @@ const Card = ({
           <button className="action-btn" onClick={() => setToShow(false)}>
             ❌
           </button>
-          <button className="action-btn">❤️</button>
+          {!liked && <button className="action-btn" onClick={handleLiked} >❤️</button>}
         </div>
         <button className="message-btn">Message</button>
       </div>

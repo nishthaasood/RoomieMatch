@@ -16,6 +16,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [accessToken, setAccessToken] = useState('');
   const [registerData, setRegisterData] = useState({})
+  const [likedUser, setLikedUser] = useState(null)
 
   const renderPage = () => {
     switch (currentPage) {
@@ -26,7 +27,7 @@ function App() {
       case 'profile':
         return <Profile setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} accessToken={accessToken} registerData={registerData}/>;
       case 'matches':
-        return <Matches setCurrentPage={setCurrentPage} />;
+        return <Matches setCurrentPage={setCurrentPage} likedUser={likedUser} setLikedUser={setLikedUser} accessToken={accessToken} />;
       case 'listARoom': 
         return <ListARoom setCurrentPage={setCurrentPage} />;
       case 'findRoom':

@@ -2518,17 +2518,31 @@ button:focus,
   box-sizing: border-box;
 }
 
-
-
-
-/* Title */
-.matches-title {
-  text-align: center;
+.matches-top{
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers title initially */
+  position: relative;      /* lets us position the button */
+  margin-bottom: 24px;
   width: 100vw;
-  font-size: 2rem;
-  font-weight: 700;
+  gap: 2%;
+}
+.matches-title,
+.matches-liked {
+  flex: 1;            /* each takes up half */
+  text-align: center; /* center the text inside */
+  padding: 12px 0;    /* adjust for spacing */
+  font-size: 1.2rem;  /* optional: bigger text */
+  border: none;
+  cursor: pointer; 
+  background: #eadab6; /* just sample background */
+  transition: background 0.3s ease;
   color: #1f2937;
-  margin-bottom: 32px;
+  margin: 0 20px;
+}
+.matches-title:hover,
+.matches-liked:hover {
+  background: #ba9f68;   /* simple hover */
 }
 
 /* Grid layout */
