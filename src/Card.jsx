@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 const Card = ({
@@ -12,6 +12,10 @@ const Card = ({
   moveinDate,
   imageURL,
 }) => {
+  const [toShow, setToShow] = useState(true);
+
+  if (!toShow) return null; // completely removes the card when ❌ is clicked
+
   return (
     <div className="card-custom">
       {/* Top Section with Image + Name */}
@@ -71,7 +75,9 @@ const Card = ({
       {/* Actions */}
       <div className="card-actions">
         <div className="action-buttons">
-          <button className="action-btn">❌</button>
+          <button className="action-btn" onClick={() => setToShow(false)}>
+            ❌
+          </button>
           <button className="action-btn">❤️</button>
         </div>
         <button className="message-btn">Message</button>
