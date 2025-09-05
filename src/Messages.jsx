@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import "./messages.css"
+import "./Messages.css"
 
 // Mock data for conversations
 const conversations = [
