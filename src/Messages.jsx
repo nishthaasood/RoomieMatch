@@ -1,367 +1,283 @@
-import { useState, useRef, useEffect } from 'react';
-import {
-    Search,
-    Send,
-    MoreVertical,
-    Phone,
-    Video,
-    Info,
-    ArrowLeft,
-    Smile,
-    Paperclip,
-    Check,
-    CheckCheck,
-    Star,
-    MapPin,
-    Clock,
-    Users,
-    Heart
-} from 'lucide-react';
-import './Messages.css'; // Import the CSS file
+"use client"
 
-const Messages = ({ setCurrentPage }) => {
-    const [selectedChat, setSelectedChat] = useState(null);
-    const [newMessage, setNewMessage] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
-    const messagesEndRef = useRef(null);
+import { useState, useRef, useEffect } from "react"
+import "./Messages.css"
 
-    // Mock data for conversations
-    const [conversations] = useState([
-        {
-            id: 1,
-            name: 'Aakriti Arya',
-            avatar: '👩‍💼',
-            lastMessage: 'That sounds perfect! When can we schedule a viewing?',
-            time: '2m',
-            unread: 2,
-            online: false,
-            location: 'PitamPura',
-            compatibility: 95,
-            verified: true
-        },
-        {
-            id: 2,
-            name: 'Nishtha Sood',
-            avatar: '👨‍💻',
-            lastMessage: 'I love cooking too! We should definitely meet up.',
-            time: '1h',
-            unread: 0,
-            online: true,
-            location: 'Rohini',
-            compatibility: 88,
-            verified: true
-        },
-        {
-            id: 3,
-            name: 'Mansi Bhandari',
-            avatar: '👩‍🎓',
-            lastMessage: 'Thanks for sharing those apartment links!',
-            time: '3h',
-            unread: 1,
-            online: false,
-            location: 'Institute Area',
-            compatibility: 92,
-            verified: true
-        },
-        {
-            id: 4,
-            name: 'Alok',
-            avatar: '👨‍🎨',
-            lastMessage: 'The rent split sounds fair to me',
-            time: '1d',
-            unread: 0,
-            online: false,
-            location: 'Near DTU',
-            compatibility: 85,
-            verified: true
-        }
-    ]);
+// Mock data for conversations
+const conversations = [
+  {
+    id: 1,
+    name: "Alex Johnson",
+    image: "/placeholder.svg?height=100&width=100",
+    lastMessage: "Hey, I saw we matched! Would love to chat about potentially being roommates.",
+    timestamp: "10:30 AM",
+    unread: true,
+  },
+  {
+    id: 2,
+    name: "Jamie Smith",
+    image: "/placeholder.svg?height=100&width=100",
+    lastMessage: "What time would work for you to meet up and discuss the apartment?",
+    timestamp: "Yesterday",
+    unread: false,
+  },
+  {
+    id: 3,
+    name: "Taylor Wilson",
+    image: "/placeholder.svg?height=100&width=100",
+    lastMessage: "I think we'd be great roommates! Let me know what you think.",
+    timestamp: "Monday",
+    unread: false,
+  },
+  {
+    id: 4,
+    name: "Jordan Lee",
+    image: "/placeholder.svg?height=100&width=100",
+    lastMessage: "Thanks for the chat! Looking forward to meeting in person.",
+    timestamp: "Last week",
+    unread: false,
+  },
+]
 
-    // Mock messages for selected chat
-    const [messages, setMessages] = useState({
-        1: [
-            { id: 1, sender: 'other', text: 'Hi! I saw your profile and we seem like a great match!', time: '10:30 AM', status: 'read' },
-            { id: 2, sender: 'me', text: 'Hey Sarah! I agree, your profile looks amazing. I love that you are also into sustainable living!', time: '10:32 AM', status: 'read' },
-            { id: 3, sender: 'other', text: 'Yes! It is so important to me. I saw you are looking in the downtown area too?', time: '10:35 AM', status: 'read' },
-            { id: 4, sender: 'me', text: 'Exactly! I found a few great places. Would you like me to send you the links?', time: '10:40 AM', status: 'read' },
-            { id: 5, sender: 'other', text: 'That sounds perfect! When can we schedule a viewing?', time: '2m ago', status: 'delivered' }
-        ],
-        2: [
-            { id: 1, sender: 'other', text: 'Hey! I noticed we both love cooking. What is your favorite cuisine?', time: '2:00 PM', status: 'read' },
-            { id: 2, sender: 'me', text: 'I love Italian and Thai food! What about you?', time: '2:05 PM', status: 'read' },
-            { id: 3, sender: 'other', text: 'I love cooking too! We should definitely meet up.', time: '1h ago', status: 'delivered' }
-        ],
-        3: [
-            { id: 1, sender: 'other', text: 'Hi there! I love your apartment links, they look perfect!', time: '9:15 AM', status: 'read' },
-            { id: 2, sender: 'me', text: 'Thanks Mansi! I spent a lot of time researching the best neighborhoods.', time: '9:20 AM', status: 'read' },
-            { id: 3, sender: 'other', text: 'That really shows! I especially like the one near the university. The rent seems reasonable too.', time: '9:25 AM', status: 'read' },
-            { id: 4, sender: 'me', text: 'Yes! Plus it has great public transport connections. Are you a student?', time: '9:30 AM', status: 'read' },
-            { id: 5, sender: 'other', text: 'PhD student actually! Working on environmental science. What about you?', time: '9:35 AM', status: 'read' },
-            { id: 6, sender: 'me', text: 'That is so cool! I work in renewable energy consulting.', time: '9:40 AM', status: 'read' },
-            { id: 7, sender: 'other', text: 'Thanks for sharing those apartment links!', time: '3h ago', status: 'delivered' }
-        ],
-        4: [
-            { id: 1, sender: 'me', text: 'Hi Alok! I see you are in the Library. I love that area!', time: '11:00 AM', status: 'read' },
-            { id: 2, sender: 'other', text: 'Hey! Yeah it is amazing here. So much creativity and energy around.', time: '11:05 AM', status: 'read' },
-            { id: 3, sender: 'me', text: 'I can imagine! What kind of art do you do?', time: '11:10 AM', status: 'read' },
-            { id: 4, sender: 'other', text: 'Mainly digital art and some photography. I have a small studio space here.', time: '11:15 AM', status: 'read' },
-            { id: 5, sender: 'me', text: 'That sounds incredible! I would love to see your work sometime.', time: '11:20 AM', status: 'read' },
-            { id: 6, sender: 'other', text: 'Definitely! Speaking of living arrangements, I found a great 2BR place nearby.', time: '11:25 AM', status: 'read' },
-            { id: 7, sender: 'me', text: 'Really? What is the rent split like?', time: '11:30 AM', status: 'read' },
-            { id: 8, sender: 'other', text: 'The rent split sounds fair to me', time: '1d ago', status: 'delivered' }
-        ]
-    });
+// Mock data for messages in a conversation
+const mockMessages = [
+  {
+    id: 1,
+    senderId: 1,
+    text: "Hey, I saw we matched! Would love to chat about potentially being roommates.",
+    timestamp: "10:30 AM",
+  },
+  {
+    id: 2,
+    senderId: "me",
+    text: "Hi Alex! Thanks for reaching out. I'd love to chat about it too.",
+    timestamp: "10:32 AM",
+  },
+  {
+    id: 3,
+    senderId: 1,
+    text: "Great! So I noticed we have a lot of compatible preferences. I especially like that you're also a night owl since I often work late.",
+    timestamp: "10:35 AM",
+  },
+  {
+    id: 4,
+    senderId: "me",
+    text: 'Yes, that\'s definitely important! I also noticed we both listed "quiet" as a preferred quality. What are your thoughts on having guests over?',
+    timestamp: "10:38 AM",
+  },
+  {
+    id: 5,
+    senderId: 1,
+    text: "I'm fine with occasional guests, but I prefer advance notice. I'm not big on parties or large gatherings at home. How about you?",
+    timestamp: "10:40 AM",
+  },
+]
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
+const Messages = () => {
+  const [selectedConversation, setSelectedConversation] = useState(null)
+  const [messages, setMessages] = useState(mockMessages)
+  const [newMessage, setNewMessage] = useState("")
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [filteredConversations, setFilteredConversations] = useState(conversations)
+  const messagesEndRef = useRef(null)
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [selectedChat, messages]);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
 
-    const handleSendMessage = () => {
-        if (!newMessage.trim() || !selectedChat) return;
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
-        const newMsg = {
-            id: Date.now(),
-            sender: 'me',
-            text: newMessage,
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            status: 'sent'
-        };
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredConversations(conversations)
+    } else {
+      const filtered = conversations.filter(
+        (conversation) =>
+          conversation.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          conversation.lastMessage.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+      setFilteredConversations(filtered)
+    }
+  }, [searchQuery])
 
-        setMessages(prev => ({
-            ...prev,
-            [selectedChat]: [...(prev[selectedChat] || []), newMsg]
-        }));
-        setNewMessage('');
-    };
+  const handleSendMessage = (e) => {
+    e.preventDefault()
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            handleSendMessage();
-        }
-    };
+    if (newMessage.trim() === "") return
 
-    const filteredConversations = conversations.filter(conv =>
-        conv.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const message = {
+      id: messages.length + 1,
+      senderId: "me",
+      text: newMessage,
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    }
 
-    const selectedContact = conversations.find(c => c.id === selectedChat);
+    setMessages([...messages, message])
+    setNewMessage("")
 
-    return (
-        <div className="messaging-wrapper">
-            <div className="messaging-container">
-                <div className="messaging-sidebar">
-                    <div className="sidebar-header">
-                        <div className="header-top">
-                            <button
-                                className="back-button"
-                                onClick={() => setCurrentPage('home')}
-                            >
-                                <ArrowLeft className="w-5 h-5" />
-                            </button>
-                            <h2 className="sidebar-title">Messages</h2>
-                            <div className="header-badge">
-                                <span>{conversations.reduce((acc, conv) => acc + conv.unread, 0)}</span>
-                            </div>
-                        </div>
+    setTimeout(() => {
+      const responseMessage = {
+        id: messages.length + 2,
+        senderId: selectedConversation,
+        text: "That sounds good! Let's discuss more details when we meet.",
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      }
+      setMessages((prev) => [...prev, responseMessage])
+    }, 2000)
+  }
 
-                        <div className="search-container">
-                            <Search className="search-icon" />
-                            <input
-                                type="text"
-                                placeholder="Search conversations..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="search-input"
-                            />
-                        </div>
-                    </div>
+  const handleAIAssist = async () => {
+    setIsGeneratingAI(true)
+    try {
+      setTimeout(() => {
+        setNewMessage("That sounds great! I'd love to learn more about your preferences and schedule a time to meet.")
+        setIsGeneratingAI(false)
+      }, 1500)
+    } catch (error) {
+      console.error("Error generating AI response:", error)
+      setIsGeneratingAI(false)
+    }
+  }
 
-                    <div className="conversations-list">
-                        {filteredConversations.map((conversation) => (
-                            <div
-                                key={conversation.id}
-                                className={`conversation-item ${selectedChat === conversation.id ? 'active' : ''}`}
-                                onClick={() => setSelectedChat(conversation.id)}
-                            >
-                                <div className="conversation-avatar">
-                                    <span className="avatar-emoji">{conversation.avatar}</span>
-                                    {conversation.online && <div className="online-indicator"></div>}
-                                    {conversation.verified && (
-                                        <div className="verified-badge">
-                                            <Check className="w-3 h-3" />
-                                        </div>
-                                    )}
-                                </div>
+  const selectedUser = conversations.find((conv) => conv.id === selectedConversation)
 
-                                <div className="conversation-content">
-                                    <div className="conversation-header">
-                                        <span className="conversation-name">{conversation.name}</span>
-                                        <div className="conversation-meta">
-                                            <span className="conversation-time">{conversation.time}</span>
-                                            {conversation.unread > 0 && (
-                                                <div className="unread-badge">{conversation.unread}</div>
-                                            )}
-                                        </div>
-                                    </div>
+  return (
+    <div className="messages-container">
+      <h1 className="messages-title">Messages</h1>
 
-                                    <div className="conversation-preview">
-                                        <p className="last-message">{conversation.lastMessage}</p>
-                                        <div className="conversation-details">
-                                            <div className="match-score">
-                                                <Star className="w-3 h-3" />
-                                                <span>{conversation.compatibility}%</span>
-                                            </div>
-                                            <div className="location">
-                                                <MapPin className="w-3 h-3" />
-                                                <span>{conversation.location}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Chat Area */}
-                <div className="chat-area">
-                    {selectedChat ? (
-                        <>
-                            {/* Chat Header */}
-                            <div className="chat-header">
-                                <div className="chat-contact-info">
-                                    <div className="contact-avatar">
-                                        <span className="avatar-emoji">{selectedContact.avatar}</span>
-                                        {selectedContact.online && <div className="online-indicator"></div>}
-                                    </div>
-                                    <div className="contact-details">
-                                        <div className="contact-header">
-                                            <h3 className="contact-name">{selectedContact.name}</h3>
-                                            {selectedContact.verified && (
-                                                <div className="verified-badge">
-                                                    <Check className="w-4 h-4" />
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="contact-status">
-                                            <div className="status-item">
-                                                <Star className="w-3 h-3" />
-                                                <span>{selectedContact.compatibility}% match</span>
-                                            </div>
-                                            <div className="status-item">
-                                                <MapPin className="w-3 h-3" />
-                                                <span>{selectedContact.location}</span>
-                                            </div>
-                                            <span className="activity-status">
-                                                {selectedContact.online ? 'Active now' : 'Last seen 2h ago'}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="chat-actions">
-                                    <button className="chat-action-btn">
-                                        <Phone className="w-5 h-5" />
-                                    </button>
-                                    <button className="chat-action-btn">
-                                        <Video className="w-5 h-5" />
-                                    </button>
-                                    <button className="chat-action-btn">
-                                        <Info className="w-5 h-5" />
-                                    </button>
-                                    <button className="chat-action-btn">
-                                        <MoreVertical className="w-5 h-5" />
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Messages */}
-                            <div className="messages-container">
-                                <div className="messages-list">
-                                    {(messages[selectedChat] || []).map((message) => (
-                                        <div key={message.id} className={`message ${message.sender === 'me' ? 'sent' : 'received'}`}>
-                                            <div className="message-content">
-                                                <p className="message-text">{message.text}</p>
-                                                <div className="message-meta">
-                                                    <span className="message-time">{message.time}</span>
-                                                    {message.sender === 'me' && (
-                                                        <div className="message-status">
-                                                            {message.status === 'sent' && <Check className="w-3 h-3" />}
-                                                            {message.status === 'delivered' && <CheckCheck className="w-3 h-3" />}
-                                                            {message.status === 'read' && <CheckCheck className="w-3 h-3 read" />}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    <div ref={messagesEndRef} />
-                                </div>
-                            </div>
-
-                            {/* Message Input */}
-                            <div className="message-input-container">
-                                <div className="input-actions">
-                                    <button type="button" className="input-action-btn">
-                                        <Paperclip className="w-5 h-5" />
-                                    </button>
-                                    <button type="button" className="input-action-btn">
-                                        <Smile className="w-5 h-5" />
-                                    </button>
-                                </div>
-
-                                <input
-                                    type="text"
-                                    value={newMessage}
-                                    onChange={(e) => setNewMessage(e.target.value)}
-                                    onKeyPress={handleKeyPress}
-                                    placeholder="Type a message..."
-                                    className="message-input"
-                                />
-
-                                <button
-                                    onClick={handleSendMessage}
-                                    className="send-button"
-                                    disabled={!newMessage.trim()}
-                                >
-                                    <Send className="w-5 h-5" />
-                                </button>
-                            </div>
-                        </>
-                    ) : (
-                        <div className="no-chat-selected">
-                            <div className="no-chat-content">
-                                <div className="no-chat-icon">
-                                    <Users className="w-16 h-16" />
-                                </div>
-                                <h3>Welcome to RoomieMatch Messaging</h3>
-                                <p>Select a conversation to start chatting with your potential roommates</p>
-                                <div className="welcome-features">
-                                    <div className="welcome-feature">
-                                        <Heart className="w-5 h-5" />
-                                        <span>Safe & Secure</span>
-                                    </div>
-                                    <div className="welcome-feature">
-                                        <Check className="w-5 h-5" />
-                                        <span>Verified Profiles</span>
-                                    </div>
-                                    <div className="welcome-feature">
-                                        <Star className="w-5 h-5" />
-                                        <span>Smart Matching</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
+      <div className="messages-layout">
+        {/* Conversations List */}
+        <div className="conversations-panel">
+          <div className="search-container">
+            <div className="search-input-wrapper">
+              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+              <input
+                type="text"
+                placeholder="Search conversations"
+                className="search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
-        </div>
-    );
-};
+          </div>
 
-export default Messages;
+          <div className="conversations-list">
+            {filteredConversations.map((conversation) => (
+              <div
+                key={conversation.id}
+                className={`conversation-item ${selectedConversation === conversation.id ? "active" : ""}`}
+                onClick={() => setSelectedConversation(conversation.id)}
+              >
+                <div className="conversation-content">
+                  <div className="avatar">
+                    <img src={conversation.image || "/placeholder.svg"} alt={conversation.name} />
+                  </div>
+                  <div className="conversation-info">
+                    <div className="conversation-header">
+                      <h3 className="conversation-name">{conversation.name}</h3>
+                      <span className="conversation-timestamp">{conversation.timestamp}</span>
+                    </div>
+                    <p className="conversation-preview">{conversation.lastMessage}</p>
+                  </div>
+                  {conversation.unread && <div className="unread-indicator"></div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Chat Area */}
+        <div className="chat-panel">
+          {selectedConversation ? (
+            <>
+              {/* Chat Header */}
+              <div className="chat-header">
+                <div className="chat-user-info">
+                  <div className="avatar">
+                    <img src={selectedUser?.image || "/placeholder.svg"} alt={selectedUser?.name} />
+                  </div>
+                  <div className="user-details">
+                    <h3 className="user-name">{selectedUser?.name}</h3>
+                    <p className="user-status">Online</p>
+                  </div>
+                </div>
+                <div className="chat-actions">
+                  <button className="action-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M12 1v6m0 6v6"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Messages */}
+              <div className="messages-area">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`message-wrapper ${message.senderId === "me" ? "sent" : "received"}`}
+                  >
+                    {message.senderId !== "me" && (
+                      <div className="message-avatar">
+                        <img src={selectedUser?.image || "/placeholder.svg"} alt={selectedUser?.name} />
+                      </div>
+                    )}
+                    <div className="message-content">
+                      <div className={`message-bubble ${message.senderId === "me" ? "sent" : "received"}`}>
+                        <p>{message.text}</p>
+                      </div>
+                      <p className="message-timestamp">{message.timestamp}</p>
+                    </div>
+                  </div>
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Message Input */}
+              <div className="message-input-container">
+                <form onSubmit={handleSendMessage} className="message-form">
+                  <button type="button" className="ai-assist-btn" onClick={handleAIAssist} disabled={isGeneratingAI}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                  </button>
+                  <input
+                    type="text"
+                    placeholder={isGeneratingAI ? "Generating response with AI..." : "Type a message..."}
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    className="message-input"
+                    disabled={isGeneratingAI}
+                  />
+                  <button type="submit" className="send-btn" disabled={isGeneratingAI || newMessage.trim() === ""}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </>
+          ) : (
+            <div className="empty-chat">
+              <div className="empty-chat-content">
+                <p className="empty-chat-title">Select a conversation to start messaging</p>
+                <p className="empty-chat-subtitle">Or find new matches to connect with</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Messages
+

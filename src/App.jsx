@@ -14,18 +14,20 @@ import Messages from './Messages.jsx';
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isLogin, setIsLogin] = useState(false);
-  const [accessToken, setAccessToken] = useState('') 
+  const [accessToken, setAccessToken] = useState('');
+  const [registerData, setRegisterData] = useState({})
+  const [likedUser, setLikedUser] = useState(null)
 
   const renderPage = () => {
     switch (currentPage) {
       case 'login':
-        return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} />;
+        return <LoginPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} setRegisterData={setRegisterData} />;
       case 'signup':
-        return <SignupPage setCurrentPage={setCurrentPage} />;
+        return <SignupPage setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} setAccessToken={setAccessToken} setRegisterData={setRegisterData}/>;
       case 'profile':
-        return <Profile setCurrentPage={setCurrentPage} accessToken={accessToken}/>;
+        return <Profile setCurrentPage={setCurrentPage} setIsLogin={setIsLogin} accessToken={accessToken} registerData={registerData}/>;
       case 'matches':
-        return <Matches setCurrentPage={setCurrentPage} />;
+        return <Matches setCurrentPage={setCurrentPage} likedUser={likedUser} setLikedUser={setLikedUser} accessToken={accessToken} />;
       case 'listARoom': 
         return <ListARoom setCurrentPage={setCurrentPage} />;
       case 'findRoom':

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 const Card = ({
@@ -10,8 +10,35 @@ const Card = ({
   dealbrakers,
   leaseDuration,
   moveinDate,
-  imageURL, // 👈 added prop
+  imageURL,
+  id,
+  accessToken,
+  setLikedUser
 }) => {
+  const [toShow, setToShow] = useState(true);
+  const [liked, setLiked] = useState(false)
+  const handleLiked =async()=>{
+    setLiked(true);
+    const res = await fetch(`https://roomiebackend-production.up.railway.app/api/user/likeRoomie`, {
+      method:"PUT",
+      body:JSON.stringify({
+        id:id,
+        accessToken:accessToken
+      }),
+      headers:{
+        "Content-Type": "application/json"
+      }
+    })
+    const data = await res.json()
+    console.log(data.likedRoomies)
+    console.log("liked")
+    setLikedUser(data.likedRoomies)
+    setToShow(false)
+
+  }
+
+  if (!toShow) return null;
+
   return (
     <div className="card-custom">
       {/* Top Section with Image + Name */}
@@ -71,9 +98,10 @@ const Card = ({
       {/* Actions */}
       <div className="card-actions">
         <div className="action-buttons">
-          <button className="action-btn">👎</button>
-          <button className="action-btn">⭐</button>
-          <button className="action-btn">👍</button>
+          <button className="action-btn" onClick={() => setToShow(false)}>
+            ❌
+          </button>
+          {!liked && <button className="action-btn" onClick={handleLiked} >❤️</button>}
         </div>
         <button className="message-btn">Message</button>
       </div>
