@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./App.css";
 
-const Matches = ({ setCurrentPage, accessToken, setLikedUser, likedUser }) => {
+const Matches = ({ setCurrentPage }) => {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [onLiked, setOnLiked] = useState(false);
 
   useEffect(() => {
     fetch("https://roomiebackend-production.up.railway.app/api/user/getAllUsers")
@@ -32,29 +31,16 @@ const Matches = ({ setCurrentPage, accessToken, setLikedUser, likedUser }) => {
     );
   }
 
-  const handleLiked = () => {
-    setOnLiked(true);
-    console.log("likedUser:", likedUser);
-  };
-
-  // Decide what to show
-  const dataToRender = onLiked ? likedUser : matches.filter((m) => m.isLooking);
-
   return (
     <div className="matches-page">
-      <div className="matches-top">
-        <button className="matches-title" onClick={() => setOnLiked(false)}>
-          All Roomies
-        </button>
-        <button className="matches-liked" onClick={handleLiked}>
-          Liked
-        </button>
-      </div>
+      <h1 className="matches-title">All Matches</h1>
 
-      {dataToRender && dataToRender.length > 0 ? (
+      {matches.length > 0 ? (
         <div className="matches-grid">
-          {dataToRender.map((match) => (
-            <Card
+          {matches
+          .filter((match) => match.isLooking)
+          .map((match) => (
+            < Card
               key={match._id}
               name={match.name}
               age={match.age}
@@ -65,9 +51,6 @@ const Matches = ({ setCurrentPage, accessToken, setLikedUser, likedUser }) => {
               leaseDuration={match.leaseDuration}
               moveinDate={match.moveinDate}
               imageURL={match.avatar}
-              id={match._id}
-              accessToken={accessToken}
-              setLikedUser={setLikedUser}
             />
           ))}
         </div>
