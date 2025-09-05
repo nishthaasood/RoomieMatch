@@ -8,7 +8,8 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 2rem;
-  color: #1f2937;
+  /* Updated to brown theme */
+  color: #78350f;
 }
 
 .messages-layout {
@@ -27,7 +28,8 @@
 
 /* Conversations Panel */
 .conversations-panel {
-  border: 1px solid #e5e7eb;
+  /* Updated border color for brown theme */
+  border: 1px solid #d2b48c;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
@@ -36,7 +38,8 @@
 
 .search-container {
   padding: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  /* Updated border color for brown theme */
+  border-bottom: 1px solid #d2b48c;
 }
 
 .search-input-wrapper {
@@ -50,13 +53,15 @@
   transform: translateY(-50%);
   width: 1rem;
   height: 1rem;
-  color: #9ca3af;
+  /* Updated icon color for brown theme */
+  color: #a0845c;
 }
 
 .search-input {
   width: 100%;
   padding: 0.5rem 0.75rem 0.5rem 2.25rem;
-  border: 1px solid #d1d5db;
+  /* Updated border color for brown theme */
+  border: 1px solid #d2b48c;
   border-radius: 0.375rem;
   font-size: 0.875rem;
   outline: none;
@@ -64,8 +69,9 @@
 }
 
 .search-input:focus {
-  border-color: #ec4899;
-  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+  /* Updated focus color to brown theme */
+  border-color: #8b4513;
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
 }
 
 .conversations-list {
@@ -77,16 +83,19 @@
 .conversation-item {
   padding: 1rem;
   cursor: pointer;
-  border-bottom: 1px solid #f3f4f6;
+  /* Updated border color for brown theme */
+  border-bottom: 1px solid #f5deb3;
   transition: background-color 0.2s;
 }
 
 .conversation-item:hover {
-  background-color: #f9fafb;
+  /* Updated hover color for brown theme */
+  background-color: #faf0e6;
 }
 
 .conversation-item.active {
-  background-color: #f9fafb;
+  /* Updated active color for brown theme */
+  background-color: #faf0e6;
 }
 
 .conversation-content {
@@ -123,7 +132,8 @@
 
 .conversation-name {
   font-weight: 500;
-  color: #1f2937;
+  /* Updated text color for brown theme */
+  color: #78350f;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -132,13 +142,15 @@
 
 .conversation-timestamp {
   font-size: 0.75rem;
-  color: #6b7280;
+  /* Updated text color for brown theme */
+  color: #a0845c;
   flex-shrink: 0;
 }
 
 .conversation-preview {
   font-size: 0.875rem;
-  color: #6b7280;
+  /* Updated text color for brown theme */
+  color: #a0845c;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -148,7 +160,8 @@
 .unread-indicator {
   width: 0.5rem;
   height: 0.5rem;
-  background-color: #ec4899;
+  /* Updated indicator color to brown theme */
+  background-color: #8b4513;
   border-radius: 50%;
   margin-top: 0.5rem;
   flex-shrink: 0;
@@ -156,7 +169,8 @@
 
 /* Chat Panel */
 .chat-panel {
-  border: 1px solid #e5e7eb;
+  /* Updated border color for brown theme */
+  border: 1px solid #d2b48c;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
@@ -166,7 +180,8 @@
 
 .chat-header {
   padding: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  /* Updated border color for brown theme */
+  border-bottom: 1px solid #d2b48c;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -185,13 +200,15 @@
 
 .user-name {
   font-weight: 500;
-  color: #1f2937;
+  /* Updated text color for brown theme */
+  color: #78350f;
   margin: 0;
 }
 
 .user-status {
   font-size: 0.75rem;
-  color: #6b7280;
+  /* Updated text color for brown theme */
+  color: #a0845c;
   margin: 0;
 }
 
@@ -210,13 +227,15 @@
 }
 
 .action-btn:hover {
-  background-color: #f3f4f6;
+  /* Updated hover color for brown theme */
+  background-color: #f5deb3;
 }
 
 .action-btn svg {
   width: 1rem;
   height: 1rem;
-  color: #6b7280;
+  /* Updated icon color for brown theme */
+  color: #a0845c;
 }
 
 /* Messages Area */
@@ -270,14 +289,17 @@
 }
 
 .message-bubble.sent {
-  background: linear-gradient(135deg, #ec4899, #a855f7);
+  /* Updated gradient to brown theme */
+  background: linear-gradient(135deg, #8b4513, #a0522d);
   color: white;
   margin-left: auto;
 }
 
 .message-bubble.received {
-  background-color: #f3f4f6;
-  color: #1f2937;
+  /* Updated background color for brown theme */
+  background-color: #f5deb3;
+  /* Updated text color for brown theme */
+  color: #78350f;
 }
 
 .message-bubble p {
@@ -287,7 +309,8 @@
 
 .message-timestamp {
   font-size: 0.75rem;
-  color: #6b7280;
+  /* Updated text color for brown theme */
+  color: #a0845c;
   margin: 0;
 }
 
@@ -298,7 +321,8 @@
 /* Message Input */
 .message-input-container {
   padding: 1rem;
-  border-top: 1px solid #e5e7eb;
+  /* Updated border color for brown theme */
+  border-top: 1px solid #d2b48c;
 }
 
 .message-form {
@@ -309,7 +333,8 @@
 
 .ai-assist-btn {
   padding: 0.5rem;
-  border: 1px solid #d1d5db;
+  /* Updated border color for brown theme */
+  border: 1px solid #d2b48c;
   background: white;
   border-radius: 0.375rem;
   cursor: pointer;
@@ -318,7 +343,8 @@
 }
 
 .ai-assist-btn:hover {
-  border-color: #a855f7;
+  /* Updated hover color for brown theme */
+  border-color: #a0522d;
 }
 
 .ai-assist-btn:disabled {
@@ -329,31 +355,36 @@
 .ai-assist-btn svg {
   width: 1rem;
   height: 1rem;
-  color: #a855f7;
+  /* Updated icon color for brown theme */
+  color: #a0522d;
 }
 
 .message-input {
   flex: 1;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
+  /* Updated border color for brown theme */
+  border: 1px solid #d2b48c;
   border-radius: 0.375rem;
   outline: none;
   transition: border-color 0.2s;
 }
 
 .message-input:focus {
-  border-color: #ec4899;
-  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+  /* Updated focus color for brown theme */
+  border-color: #8b4513;
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
 }
 
 .message-input:disabled {
-  background-color: #f9fafb;
-  color: #6b7280;
+  /* Updated disabled colors for brown theme */
+  background-color: #faf0e6;
+  color: #a0845c;
 }
 
 .send-btn {
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #ec4899, #a855f7);
+  /* Updated gradient to brown theme */
+  background: linear-gradient(135deg, #8b4513, #a0522d);
   color: white;
   border: none;
   border-radius: 0.375rem;
@@ -363,7 +394,8 @@
 }
 
 .send-btn:hover {
-  background: linear-gradient(135deg, #db2777, #9333ea);
+  /* Updated hover gradient to darker brown */
+  background: linear-gradient(135deg, #654321, #8b4513);
 }
 
 .send-btn:disabled {
@@ -389,13 +421,15 @@
 }
 
 .empty-chat-title {
-  color: #6b7280;
+  /* Updated text color for brown theme */
+  color: #a0845c;
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
 
 .empty-chat-subtitle {
-  color: #9ca3af;
+  /* Updated text color for brown theme */
+  color: #d2b48c;
   font-size: 0.875rem;
   margin: 0;
 }
@@ -408,16 +442,19 @@
 
 .conversations-list::-webkit-scrollbar-track,
 .messages-area::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  /* Updated scrollbar track color for brown theme */
+  background: #faf0e6;
 }
 
 .conversations-list::-webkit-scrollbar-thumb,
 .messages-area::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  /* Updated scrollbar thumb color for brown theme */
+  background: #d2b48c;
   border-radius: 3px;
 }
 
 .conversations-list::-webkit-scrollbar-thumb:hover,
 .messages-area::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  /* Updated scrollbar hover color for brown theme */
+  background: #a0845c;
 }

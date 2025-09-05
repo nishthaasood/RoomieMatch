@@ -78,6 +78,8 @@ const Messages = () => {
   const [messages, setMessages] = useState(mockMessages)
   const [newMessage, setNewMessage] = useState("")
   const [isGeneratingAI, setIsGeneratingAI] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [filteredConversations, setFilteredConversations] = useState(conversations)
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -87,6 +89,19 @@ const Messages = () => {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredConversations(conversations)
+    } else {
+      const filtered = conversations.filter(
+        (conversation) =>
+          conversation.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          conversation.lastMessage.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+      setFilteredConversations(filtered)
+    }
+  }, [searchQuery])
 
   const handleSendMessage = (e) => {
     e.preventDefault()
@@ -103,7 +118,6 @@ const Messages = () => {
     setMessages([...messages, message])
     setNewMessage("")
 
-    // Simulate a response after a short delay
     setTimeout(() => {
       const responseMessage = {
         id: messages.length + 2,
@@ -118,7 +132,6 @@ const Messages = () => {
   const handleAIAssist = async () => {
     setIsGeneratingAI(true)
     try {
-      // Simulate AI response generation
       setTimeout(() => {
         setNewMessage("That sounds great! I'd love to learn more about your preferences and schedule a time to meet.")
         setIsGeneratingAI(false)
@@ -144,12 +157,18 @@ const Messages = () => {
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
               </svg>
-              <input type="text" placeholder="Search conversations" className="search-input" />
+              <input
+                type="text"
+                placeholder="Search conversations"
+                className="search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
           </div>
 
           <div className="conversations-list">
-            {conversations.map((conversation) => (
+            {filteredConversations.map((conversation) => (
               <div
                 key={conversation.id}
                 className={`conversation-item ${selectedConversation === conversation.id ? "active" : ""}`}
@@ -189,17 +208,6 @@ const Messages = () => {
                   </div>
                 </div>
                 <div className="chat-actions">
-                  <button className="action-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                    </svg>
-                  </button>
-                  <button className="action-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <polygon points="23 7 16 12 23 17 23 7"></polygon>
-                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-                    </svg>
-                  </button>
                   <button className="action-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <circle cx="12" cy="12" r="3"></circle>
@@ -272,3 +280,4 @@ const Messages = () => {
 }
 
 export default Messages
+
