@@ -79,7 +79,7 @@ const [profileData, setProfileData] = useState({
 
 const [formData, setFormData] = useState(profileData);
 
-
+console.log("accessToken :: ",accessToken)
 
 // Handle input changes
 const handleChange = (e) => {
@@ -185,8 +185,8 @@ const handleChange = (e) => {
           });
 
           const data = await userRes.json();
-          setUserData(data);
-          console.log("data from profile " , data)
+          setUserData(data?.data);
+          console.log("data from profile " , data.data)
           setAvatarUrl(data?.data?.avatar || null);
           console.log("data is ",data.data.name)
           // Update profileData with API info
@@ -195,8 +195,8 @@ const handleChange = (e) => {
             email:registerData.email,
             firstName:registerData.firstName,
             lastName:registerData.lastName,
-            occupation:'student',
-            university:'college',
+            occupation:data.data.occupation,
+            university:data.data.workPlace,
             bio: data?.data?.description || prev.bio,
             age: data?.data?.age || registerData.age, 
             phone: data?.data?.phoneNumber || registerData.phone,
@@ -373,7 +373,7 @@ const handleChange = (e) => {
                       <input
                         type="text"
                         name="university"
-                        value='ABC University'
+                        value={userData.workPlace}
                         onChange={handleChange}
                         className="form-input"
                         placeholder="Stanford University"

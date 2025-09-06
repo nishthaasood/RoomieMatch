@@ -107,8 +107,9 @@ const SignupPage = ({ setCurrentPage, setRegisterData,setIsLogin, setAccessToken
         console.log("unable to register")
       }
       const data = await response.json();
-      console.log("user created",data?.data?.user?.accessToken)
-      setAccessToken(data?.data?.user?.accessToken)
+      console.log("user created",data["data"]["user"]["accessToken"])
+      setAccessToken(data["data"]["user"]["accessToken"])
+
       console.log('Signup attempt:', formData);
       alert('Account created successfully! Please check your email for verification.');
       setCurrentPage('profile');
