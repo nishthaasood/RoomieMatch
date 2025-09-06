@@ -54,7 +54,7 @@ RoomieMatch is a modern web application that uses intelligent algorithms to conn
 |------|------------------|
 | ALOK | [@ALOK-github](https://github.com/alok-psr) |
 | NISHTHA | [@NISHTHA-github](https://github.com/nishthaasood) | 
-| MANSI | [[@MANSI-github](https://github.com/mansibhandarilab) |
+| MANSI |  [@MANSI-github](https://github.com/mansibhandarilab) |
 | AAKRITI | [@AAKRITI-github](https://github.com/Aakriti0207) | 
 
       ## 🤝 Contributing
