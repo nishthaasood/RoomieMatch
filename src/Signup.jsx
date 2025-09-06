@@ -111,12 +111,11 @@ const SignupPage = ({ setCurrentPage, setRegisterData,setIsLogin, setAccessToken
       console.log(data["data"])
       console.log(data["data"]["user"])
       setAccessToken(data["data"]["user"]["accessToken"])
-
       console.log('Signup attempt:', formData);
       alert('Account created successfully! Please check your email for verification.');
+      setIsLogin(true)
       setCurrentPage('profile');
 
-      setIsLogin(true)
     }
   };
 
