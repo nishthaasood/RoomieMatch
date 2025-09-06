@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
-import "./App.css";
+import "./Matches.css";
 
 const Matches = ({ setCurrentPage }) => {
   const [matches, setMatches] = useState([]);
