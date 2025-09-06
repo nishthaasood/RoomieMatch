@@ -107,7 +107,9 @@ const SignupPage = ({ setCurrentPage, setRegisterData,setIsLogin, setAccessToken
         console.log("unable to register")
       }
       const data = await response.json();
-      console.log("user created",data["data"]["user"]["accessToken"])
+      console.log("user created",data)
+      console.log(data["data"])
+      console.log(data["data"]["user"])
       setAccessToken(data["data"]["user"]["accessToken"])
 
       console.log('Signup attempt:', formData);

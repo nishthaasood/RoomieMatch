@@ -185,10 +185,14 @@ const handleChange = (e) => {
           });
 
           const data = await userRes.json();
-          setUserData(data?.data);
-          console.log("data from profile " , data.data)
-          setAvatarUrl(data?.data?.avatar || null);
-          console.log("data is ",data.data.name)
+          setUserData(data["data"]);
+          console.log("data from profile " , data["data"])
+          try {
+            setAvatarUrl(data["data"]["avatar"] || null);
+          } catch (error) {
+            console.log("image not available")
+          }
+          console.log("data is ",data["data"]["name"])
           // Update profileData with API info
           setProfileData(prev => ({
             ...prev,
@@ -357,7 +361,7 @@ const handleChange = (e) => {
                         <input
                           type="text"
                           name="occupation"
-                          value='Student'
+                          value={userData.occupation}
                           onChange={handleChange}
                           className="form-input"
                           placeholder="Software Engineer"
