@@ -572,6 +572,8 @@ button,
   transition: all 0.3s ease;
   position: relative;
   z-index: 2;
+  background: linear-gradient(135deg, #97341B, #62200C);
+  color: white !important;
 }
 
 .modern-feature:hover .feature-icon {
