@@ -399,16 +399,16 @@ button,
 
 /* Sign Up Button */
 .signup-btn {
-  background: linear-gradient(135deg, #e69da6, #934790);
+  background: #97341B;
   color: #fff;
   border: none;
-  box-shadow: 0 8px 25px rgba(147, 71, 144, 0.3);
+  box-shadow: #C27752;
 }
 
 .signup-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(147, 71, 144, 0.4);
-  background: #97341B
+  box-shadow: #C27752;
+  background: #97341B;
 }
 
 .hero-visual {
@@ -532,7 +532,8 @@ button,
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #e8d5b7;
+  background: linear-gradient(135deg, #97341B, #62200C);
+  color: white !important;
 }
 
 .step-title {
@@ -897,7 +898,7 @@ button,
 }
 
 .cta-card {
-  background: #3e1105;
+  background: linear-gradient(135deg, #852a14, #62200C);
   border-radius: 24px;
   padding: 48px;
   display: flex;
@@ -2278,7 +2279,7 @@ button,
   .signup-page {
     padding: 60px 15px 30px;
   }
-
+  
   .auth-card {
     padding: 40px 30px;
   }
@@ -2507,6 +2508,10 @@ button,
   }
 }
 
+.signup-page .auth-container{
+    margin-top: 200px;
+  }
+
 /* Loading States */
 .form-input:disabled {
   background: #f5f5f5;
@@ -2560,7 +2565,7 @@ button:focus,
 .auth-submit-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #e69da6, #934790);
+  background: #97341B;
   border: none;
   border-radius: 12px;
   color: white;
@@ -2572,15 +2577,16 @@ button:focus,
 }
 
 .auth-submit-btn:hover {
-  background: linear-gradient(135deg, #d17585, #702c5e);
+  background: #62200C;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(147, 71, 144, 0.3);
+  box-shadow: black;
+  border: #3e1105;
 }
 
 .auth-submit {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #e69da6, #934790);
+  background: #62200C;
   border: none;
   border-radius: 12px;
   color: white;

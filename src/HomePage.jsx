@@ -234,8 +234,6 @@ const HomePage = ({ setCurrentPage }) => {
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
                 <div className="feature-cta">
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
             ))}
