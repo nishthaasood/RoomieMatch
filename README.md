@@ -17,7 +17,7 @@ RoomieMatch is a modern web application that uses intelligent algorithms to conn
 
   ## 🚀 Live Demo
 
-🌐 **[View Live Demo](http://localhost:5173/)** *(Currently in development)*
+🌐 **[View Live Demo](https://roomie-match-chi.vercel.app/)** *(Currently in development)*
 
 ## 🎯 Usage
 
