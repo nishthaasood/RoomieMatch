@@ -155,7 +155,7 @@ const Matches = ({ setCurrentPage }) => {
                 <div className="match-image-wrapper">
                   <div className="match-image-container-pro">
                     <img
-                      src={match.avatar || "/placeholder.svg?height=280&width=320"}
+                      src={match.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF02Jj8T2t7PdkytAw42HDuuSz7yXguKn8Lg&s"}
                       alt={match.name}
                       className="match-image-pro"
                     />
