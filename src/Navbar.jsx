@@ -1,6 +1,8 @@
-const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
-  console.log(isLogin);
-  
+import { useState } from "react";
+
+const Navbar = ({ setCurrentPage, currentPage, isLogin, setIsLogin }) => {
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
+
   return (
     <nav className="navbar">
       <div 
@@ -11,6 +13,7 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
       </div>
       
       <div className="nav-links">
+        
         
         {isLogin && <a 
           href="#"
@@ -34,9 +37,7 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
           Find Roommate
         </a>}
         
-        {/* Find a Room */}
-        {isLogin&& 
-        <a 
+        {isLogin && <a 
           href="#"
           className={currentPage === 'findRoom' ? 'active' : ''}
           onClick={(e) => {
@@ -46,8 +47,8 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
         >
           Find a Room
         </a>}
-        {isLogin &&
-        <a 
+        
+        {isLogin && <a 
           href="#"
           className={currentPage === 'profile' ? 'active' : ''}
           onClick={(e) => {
@@ -59,22 +60,68 @@ const Navbar = ({ setCurrentPage, currentPage, isLogin }) => {
         </a>}
       </div>
       
-      {!isLogin && (
-        <div className="auth-buttons">
-          <button 
-            className="login-btn"
-            onClick={() => setCurrentPage('login')}
-          >
-            Login
-          </button>
-          <button 
-            className="signup-btn"
-            onClick={() => setCurrentPage('signup')}
-          >
-            Sign Up
-          </button>
-        </div>
-      )}
+      <div className="auth-buttons">
+        {isLogin ? (
+          <>
+            {/* Profile Footer Style Button */}
+            <button 
+              className="signout-btn"
+              onClick={() => {
+                setShowSignOutModal(true)
+              }}
+            >
+              <span className="btn-icon">⏻</span>
+              Sign Out
+            </button>
+
+            {/* Sign Out Confirmation Modal */}
+            {showSignOutModal && (
+              <div className="modal-overlay">
+                <div className="modal">
+                  <h3>Confirm Sign Out</h3>
+                  <p>
+                    Are you sure you want to sign out? You'll need to log in
+                    again to access your profile.
+                  </p>
+                  <div className="modal-actions">
+                    <button
+                      onClick={() => {
+                        setIsLogin(false);
+                        setShowSignOutModal(false);
+                        setCurrentPage("home");
+                      }}
+                      className="confirm-btn"
+                    >
+                      Yes, Sign Out
+                    </button>
+                    <button
+                      onClick={() => setShowSignOutModal(false)}
+                      className="cancel-btn"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <button 
+              className="login-btn"
+              onClick={() => setCurrentPage('login')}
+            >
+              Login
+            </button>
+            <button 
+              className="signup-btn"
+              onClick={() => setCurrentPage('signup')}
+            >
+              Sign Up
+            </button>
+          </>
+        )}
+      </div>
     </nav>
   );
 };

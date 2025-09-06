@@ -1291,6 +1291,7 @@ button,
 .cancel-btn:hover {
   background: linear-gradient(135deg, #4b5563, #374151);
   transform: translateY(-2px);
+  color: #f5c2c2 ;
   box-shadow: 0 12px 35px rgba(107, 114, 128, 0.4);
 }
 
@@ -1315,6 +1316,7 @@ button,
 .confirm-btn:hover {
   background: linear-gradient(135deg, #b91c1c, #991b1b);
   transform: translateY(-2px);
+  color: #f5c2c2 ;
   box-shadow: 0 12px 35px rgba(220, 38, 38, 0.4);
 }
 
@@ -1327,6 +1329,7 @@ button,
 .signout-btn:hover {
   background: linear-gradient(135deg, #b91c1c, #991b1b);
   transform: translateY(-2px);
+  color: #f5c2c2 ;
   box-shadow: 0 12px 35px rgba(220, 38, 38, 0.4);
 }
 
