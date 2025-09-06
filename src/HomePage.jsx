@@ -14,7 +14,7 @@ import {
   Zap
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import phoneImage from './assets/phone image.jpg';
+import phoneImage from './assets/phone-image.png';
 
 const HomePage = ({ setCurrentPage }) => {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -147,19 +147,47 @@ const HomePage = ({ setCurrentPage }) => {
                     <div className="header-title">Your Matches</div>
                     <div className="notification-dot"></div>
                   </div>
-                  {/* YE ADD KARO - Image container */}
-                  <div className="phone-content">
-                    <img
-                      src={phoneImage}
-                      alt="Roommate matching process"
-                      className="process-diagram"
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'contain',
-                        maxHeight: '80%'
-                      }}
-                    />
+                  <div class="flowchart">
+                    <div class="flowchart-step step-signup">
+                        <div class="step-icon icon-user"></div>
+                        <div class="step-title">Sign Up</div>
+                        <div class="step-description">Create your profile with lifestyle preferences</div>
+                        <div class="step-arrow"></div>
+                    </div>
+
+                    <div class="flowchart-step step-matching">
+                        <div class="step-icon icon-match"></div>
+                        <div class="step-title">Get Matched</div>
+                        <div class="step-description">AI algorithm finds compatible roommates</div>
+                        <div class="step-arrow"></div>
+                    </div>
+
+                    <div class="flowchart-step step-browse">
+                        <div class="step-icon icon-browse"></div>
+                        <div class="step-title">Browse Profiles</div>
+                        <div class="step-description">View compatibility scores and user details</div>
+                        <div class="step-arrow"></div>
+                    </div>
+
+                    <div class="flowchart-step step-chat">
+                        <div class="step-icon icon-chat"></div>
+                        <div class="step-title">Start Chatting</div>
+                        <div class="step-description">Connect and chat securely</div>
+                        <div class="step-arrow"></div>
+                    </div>
+
+                    <div class="flowchart-step step-housing">
+                        <div class="step-icon icon-housing"></div>
+                        <div class="step-title">Find Housing</div>
+                        <div class="step-description">Message potential roommates securely</div>
+                        <div class="step-arrow"></div>
+                    </div>
+
+                    <div class="flowchart-step step-connect">
+                        <div class="step-icon icon-connect"></div>
+                        <div class="step-title">Connect with Matched Roommate</div>
+                        <div class="step-description">Meet your perfect roommate match!</div>
+                    </div>
                   </div>
                 </div>
               </div>
