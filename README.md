@@ -19,6 +19,8 @@ RoomieMatch is a modern web application that uses intelligent algorithms to conn
 
 🌐 **[View Live Demo](https://roomie-match-chi.vercel.app/)** *(Currently in development)*
 
+🔗 **[RoomieMatch Backend](https://github.com/alok-psr/roomieBackend)** 
+
 ## 🎯 Usage
 
 1. **Sign Up**: Create your profile with lifestyle preferences
