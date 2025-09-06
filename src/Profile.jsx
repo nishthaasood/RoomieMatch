@@ -745,33 +745,7 @@ const handleChange = (e) => {
       </div>
 
       {/* Footer */}
-      <div className="profile-footer">
-        <button 
-          className="signout-btn"
-          onClick={() => setShowSignOutModal(true)}
-        >
-          <span className="btn-icon">⏻</span>
-          Sign Out
-        </button>
-      </div>
-
-      {/* Sign Out Confirmation Modal */}
-      {showSignOutModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h3>Confirm Sign Out</h3>
-            <p>Are you sure you want to sign out? You'll need to log in again to access your profile.</p>
-            <div className="modal-actions">
-              <button onClick={handleSignOut} className="confirm-btn">
-                Yes, Sign Out
-              </button>
-              <button onClick={() => setShowSignOutModal(false)} className="cancel-btn">
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      
 
       <Footer />
     </div>

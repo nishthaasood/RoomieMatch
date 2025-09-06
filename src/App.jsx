@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div className="app">
-      <Navbar setCurrentPage={setCurrentPage} currentPage={currentPage} isLogin={isLogin} />
+      <Navbar setCurrentPage={setCurrentPage} currentPage={currentPage} setIsLogin={setIsLogin} isLogin={isLogin} />
       {renderPage()}
     </div>
   );
