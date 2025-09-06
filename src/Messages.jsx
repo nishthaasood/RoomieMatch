@@ -118,48 +118,74 @@ const Messages = () => {
     setMessages([...messages, message])
     setNewMessage("")
 
+    // Simulate response
     setTimeout(() => {
+      const responses = [
+        "That sounds perfect! When would be a good time to meet?",
+        "I completely agree with that approach. Let's discuss more details.",
+        "Great! I'm excited to learn more about your lifestyle and preferences.",
+        "That works for me too! Should we schedule a video call or meet in person?",
+      ]
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)]
+      
       const responseMessage = {
         id: messages.length + 2,
         senderId: selectedConversation,
-        text: "That sounds good! Let's discuss more details when we meet.",
+        text: randomResponse,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       }
       setMessages((prev) => [...prev, responseMessage])
-    }, 2000)
+    }, 1500 + Math.random() * 1000)
   }
 
   const handleAIAssist = async () => {
     setIsGeneratingAI(true)
     try {
       setTimeout(() => {
-        setNewMessage("That sounds great! I'd love to learn more about your preferences and schedule a time to meet.")
+        const aiSuggestions = [
+          "That sounds great! I'd love to learn more about your preferences and schedule a time to meet.",
+          "I appreciate you reaching out! Could we set up a time to discuss living arrangements in more detail?",
+          "Thanks for the message! I'm interested in learning more about your lifestyle and compatibility.",
+          "I'd be happy to chat more about this! What would be the best way to continue our conversation?",
+        ]
+        const randomSuggestion = aiSuggestions[Math.floor(Math.random() * aiSuggestions.length)]
+        setNewMessage(randomSuggestion)
         setIsGeneratingAI(false)
-      }, 1500)
+      }, 1200)
     } catch (error) {
       console.error("Error generating AI response:", error)
       setIsGeneratingAI(false)
     }
   }
 
+  const handleProfileClick = (userId, userName) => {
+    // Navigate to user profile - you can implement your routing logic here
+    console.log(`Navigating to profile of ${userName} (ID: ${userId})`)
+    // For now, just show an alert
+    alert(`Opening ${userName}'s profile...`)
+    // In a real app, you might use: 
+    // router.push(`/profile/${userId}`)
+    // or window.location.href = `/profile/${userId}`
+  }
+
   const selectedUser = conversations.find((conv) => conv.id === selectedConversation)
 
   return (
     <div className="messages-container">
-      <h1 className="messages-title">Messages</h1>
+      <h1 className="messages-title">💬 Messages</h1>
 
       <div className="messages-layout">
         {/* Conversations List */}
         <div className="conversations-panel">
           <div className="search-container">
             <div className="search-input-wrapper">
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
               </svg>
               <input
                 type="text"
-                placeholder="Search conversations"
+                placeholder="Search conversations..."
                 className="search-input"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -175,12 +201,28 @@ const Messages = () => {
                 onClick={() => setSelectedConversation(conversation.id)}
               >
                 <div className="conversation-content">
-                  <div className="avatar">
+                  <div 
+                    className="avatar profile-clickable" 
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleProfileClick(conversation.id, conversation.name)
+                    }}
+                    title={`View ${conversation.name}'s profile`}
+                  >
                     <img src={conversation.image || "/placeholder.svg"} alt={conversation.name} />
                   </div>
                   <div className="conversation-info">
                     <div className="conversation-header">
-                      <h3 className="conversation-name">{conversation.name}</h3>
+                      <h3 
+                        className="conversation-name profile-clickable"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleProfileClick(conversation.id, conversation.name)
+                        }}
+                        title={`View ${conversation.name}'s profile`}
+                      >
+                        {conversation.name}
+                      </h3>
                       <span className="conversation-timestamp">{conversation.timestamp}</span>
                     </div>
                     <p className="conversation-preview">{conversation.lastMessage}</p>
@@ -198,20 +240,28 @@ const Messages = () => {
             <>
               {/* Chat Header */}
               <div className="chat-header">
-                <div className="chat-user-info">
+                <div 
+                  className="chat-user-info"
+                  onClick={() => handleProfileClick(selectedUser?.id, selectedUser?.name)}
+                  title={`View ${selectedUser?.name}'s profile`}
+                >
                   <div className="avatar">
                     <img src={selectedUser?.image || "/placeholder.svg"} alt={selectedUser?.name} />
                   </div>
                   <div className="user-details">
                     <h3 className="user-name">{selectedUser?.name}</h3>
-                    <p className="user-status">Online</p>
+                    <p className="user-status">
+                      <span className="status-dot"></span>
+                      Online
+                    </p>
                   </div>
                 </div>
                 <div className="chat-actions">
-                  <button className="action-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <circle cx="12" cy="12" r="3"></circle>
-                      <path d="M12 1v6m0 6v6"></path>
+                  <button className="action-btn" title="More options">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="1"></circle>
+                      <circle cx="12" cy="5" r="1"></circle>
+                      <circle cx="12" cy="19" r="1"></circle>
                     </svg>
                   </button>
                 </div>
@@ -225,7 +275,11 @@ const Messages = () => {
                     className={`message-wrapper ${message.senderId === "me" ? "sent" : "received"}`}
                   >
                     {message.senderId !== "me" && (
-                      <div className="message-avatar">
+                      <div 
+                        className="message-avatar profile-clickable" 
+                        onClick={() => handleProfileClick(selectedUser?.id, selectedUser?.name)}
+                        title={`View ${selectedUser?.name}'s profile`}
+                      >
                         <img src={selectedUser?.image || "/placeholder.svg"} alt={selectedUser?.name} />
                       </div>
                     )}
@@ -243,21 +297,32 @@ const Messages = () => {
               {/* Message Input */}
               <div className="message-input-container">
                 <form onSubmit={handleSendMessage} className="message-form">
-                  <button type="button" className="ai-assist-btn" onClick={handleAIAssist} disabled={isGeneratingAI}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <button 
+                    type="button" 
+                    className="ai-assist-btn" 
+                    onClick={handleAIAssist} 
+                    disabled={isGeneratingAI}
+                    title="AI Assist - Generate smart reply"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                     </svg>
                   </button>
                   <input
                     type="text"
-                    placeholder={isGeneratingAI ? "Generating response with AI..." : "Type a message..."}
+                    placeholder={isGeneratingAI ? "✨ AI is crafting a response..." : "Type your message..."}
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     className="message-input"
                     disabled={isGeneratingAI}
                   />
-                  <button type="submit" className="send-btn" disabled={isGeneratingAI || newMessage.trim() === ""}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <button 
+                    type="submit" 
+                    className="send-btn" 
+                    disabled={isGeneratingAI || newMessage.trim() === ""}
+                    title="Send message"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <line x1="22" y1="2" x2="11" y2="13"></line>
                       <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
                     </svg>
@@ -268,8 +333,10 @@ const Messages = () => {
           ) : (
             <div className="empty-chat">
               <div className="empty-chat-content">
-                <p className="empty-chat-title">Select a conversation to start messaging</p>
-                <p className="empty-chat-subtitle">Or find new matches to connect with</p>
+                <h2 className="empty-chat-title">🏠 Start Your Roommate Journey</h2>
+                <p className="empty-chat-subtitle">
+                  Select a conversation to begin chatting with potential roommates and find your perfect living companion!
+                </p>
               </div>
             </div>
           )}
