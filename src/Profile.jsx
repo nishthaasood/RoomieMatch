@@ -98,26 +98,34 @@ const handleChange = (e) => {
         ...prev,
         [name]: value
       }));
+      console.log(formData[name])
+      console.log(profileData.moveInDate)
     }
   };
-  
+  const [date,setDate] = useState('0000-00-00')
   const formPayload = new FormData();
   
   const handleSave = async () => {
   try {
     const mergedData = { ...profileData, ...formData }; // merge old + new
-    console.log()
+    console.log("date is ", profileData.moveInDate)
     const formPayload = new FormData();
+
+    let moveInDateValue = mergedData.moveInDate 
+      ? new Date(mergedData.moveInDate).toISOString() 
+      : new Date("2026-01-12").toISOString(); // fallback ISO
+
+    formPayload.append("moveinDate", moveInDateValue);
+    formPayload.append("location", mergedData.location);
     formPayload.append("name", `${mergedData.firstName} ${mergedData.lastName}`);
     formPayload.append("age", parseInt(mergedData.age, 10));
     formPayload.append("phoneNumber", mergedData.phone);
     formPayload.append("budget", parseInt(mergedData.budget, 10));
     formPayload.append("leaseDuration", parseInt(mergedData.leaseDuration, 10)||6);
-    formPayload.append("moveinDate", new Date(mergedData.moveInDate).toISOString()|| new Date('2025-01-12').toISOString());
     formPayload.append("description", mergedData.bio);
     formPayload.append("dealbrakers", JSON.stringify(mergedData.dealBreakers));
     formPayload.append("interests", JSON.stringify(mergedData.interests));
-
+    
     if (mergedData.avatarFile) {
       formPayload.append("avatar", mergedData.avatarFile);
     }
@@ -131,6 +139,8 @@ const handleChange = (e) => {
 
     const data = await res.json();
 
+    console.log("date is ::",data["data"]["moveinnDate"])
+    console.log("date is  in subs::",data["data"]["moveinDate"].substring(0,10))
     if (res.ok) {
       console.log("Profile updated:", data);
       setProfileData(mergedData); // update with mergedData
@@ -190,17 +200,23 @@ const handleChange = (e) => {
           try {
             setAvatarUrl(data["data"]["avatar"] || null);
           } catch (error) {
+            setAvatarUrl('https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png')
             console.log("image not available")
           }
           console.log("data is ",data["data"]["name"])
-          // Update profileData with API info
+          console.log(formData.Date)
+          
+                  
+// Update profileData with API info
           setProfileData(prev => ({
             ...prev,
+            moveInDate:data?.data?.moveinDate,
             email:registerData.email,
             firstName:registerData.firstName,
             lastName:registerData.lastName,
             occupation:data.data.occupation,
             university:data.data.workPlace,
+            location:data.data.location || formData.location,
             bio: data?.data?.description || prev.bio,
             age: data?.data?.age || registerData.age, 
             phone: data?.data?.phoneNumber || registerData.phone,
@@ -361,7 +377,7 @@ const handleChange = (e) => {
                         <input
                           type="text"
                           name="occupation"
-                          value={userData.occupation}
+                          value={formData.occupation}
                           onChange={handleChange}
                           className="form-input"
                           placeholder="Software Engineer"
@@ -377,7 +393,7 @@ const handleChange = (e) => {
                       <input
                         type="text"
                         name="university"
-                        value={userData.workPlace}
+                        value={formData.workPlace}
                         onChange={handleChange}
                         className="form-input"
                         placeholder="Stanford University"
@@ -657,10 +673,11 @@ const handleChange = (e) => {
                         <input
                           type="date"
                           name="moveInDate"
-                          value={formData.moveInDate}
+                          value={formData.moveInDate ? formData.moveInDate.split("T")[0] : ""}
                           onChange={handleChange}
                           className="form-input"
                         />
+
                       </div>
                       <div className="form-group">
                         <label className="form-label">Lease Duration</label>
