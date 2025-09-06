@@ -1,6 +1,3 @@
-/* Created comprehensive CSS file with brownish earth tone theme */
-
-/* Root Variables - Brownish Earth Tone Theme */
 :root {
   --color-primary: #8b4513;
   --color-primary-hover: #a0522d;
@@ -569,6 +566,7 @@
   transition: all 0.2s ease;
   box-shadow: var(--shadow-md);
   opacity: 0;
+  color: var(--color-text); /* Added: Set icon color to a dark text color */
 }
 
 .room-card-v3:hover .image-nav-btn {
@@ -586,6 +584,7 @@
 .image-nav-btn:hover {
   background-color: white;
   transform: translateY(-50%) scale(1.1);
+  color: var(--color-primary); /* Optional: change icon color on hover */
 }
 
 .price-badge-v3 {
@@ -615,7 +614,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: var(--color-text-muted);
+  color: var(--color-text); /* Changed: Set default icon color to a dark text color */
 }
 
 .favorite-btn-v3:hover {
@@ -1112,6 +1111,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   opacity: 0;
   z-index: 2;
+  color: var(--color-text); /* Added: Set icon color to a dark text color */
 }
 
 .room-card-professional:hover .image-nav-btn-pro {
@@ -1130,6 +1130,7 @@
   background-color: white;
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: var(--color-primary); /* Optional: change icon color on hover */
 }
 
 /* Added image indicators for multiple photos */
@@ -1170,7 +1171,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: var(--color-text-muted);
+  color: var(--color-text); /* Changed: Set default icon color to a dark text color */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
@@ -1178,7 +1179,7 @@
 .favorite-btn-pro:hover {
   transform: scale(1.1);
   color: var(--color-heart);
-  background-color: white;
+  background-color: var(--color-heart); /* Added: Ensure background changes on hover */
 }
 
 .favorite-btn-pro.favorited {

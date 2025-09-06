@@ -7,7 +7,7 @@ import "./Messages.css"
 const conversations = [
   {
     id: 1,
-    name: "Alex Johnson",
+    name: "Aakriti Arya",
     image: "/placeholder.svg?height=100&width=100",
     lastMessage: "Hey, I saw we matched! Would love to chat about potentially being roommates.",
     timestamp: "10:30 AM",
@@ -15,15 +15,15 @@ const conversations = [
   },
   {
     id: 2,
-    name: "Jamie Smith",
-    image: "/placeholder.svg?height=100&width=100",
+    name: "Nishtha Sood",
+    image: "/assets/nish.jpg",
     lastMessage: "What time would work for you to meet up and discuss the apartment?",
     timestamp: "Yesterday",
     unread: false,
   },
   {
     id: 3,
-    name: "Taylor Wilson",
+    name: "Alok Rathore",
     image: "/placeholder.svg?height=100&width=100",
     lastMessage: "I think we'd be great roommates! Let me know what you think.",
     timestamp: "Monday",
@@ -31,7 +31,7 @@ const conversations = [
   },
   {
     id: 4,
-    name: "Jordan Lee",
+    name: "Mansi Bhandari",
     image: "/placeholder.svg?height=100&width=100",
     lastMessage: "Thanks for the chat! Looking forward to meeting in person.",
     timestamp: "Last week",
@@ -50,7 +50,7 @@ const mockMessages = [
   {
     id: 2,
     senderId: "me",
-    text: "Hi Alex! Thanks for reaching out. I'd love to chat about it too.",
+    text: "Hi bro! Thanks for reaching out. I'd love to chat about it too.",
     timestamp: "10:32 AM",
   },
   {
