@@ -159,11 +159,13 @@ function ListARoom({ setCurrentPage }) {
 
   if (isSubmitted) {
     return (
-      <div className="submittedContainer">
-        <div className="submittedCard">
-          <h2 className="submittedTitle">Room Listed Successfully!</h2>
-          <p className="submittedText">
-            Your room is now live and visible to potential roommates.
+      <div className="listroomSubmittedContainer">
+        <div className="listroomSubmittedCard">
+          <h2 className="listroomSubmittedTitle">🎉 Room Listed Successfully!</h2>
+          <p className="listroomSubmittedText">
+            Your room is now live and visible to potential roommates! 
+            <br /><br />
+            Thank you for choosing Listroom! 🏠✨
           </p>
         </div>
       </div>
@@ -171,41 +173,41 @@ function ListARoom({ setCurrentPage }) {
   }
 
   return (
-    <div className="container">
-      <div className="wrapper">
-        <div className="header">
+    <div className="listroomContainer">
+      <div className="listroomWrapper">
+        <div className="listroomHeader">
           <div>
-            <h1 className="headerTitle">List Your Room</h1>
-            <p className="headerStep">Step {currentStep} of {totalSteps}</p>
+            <h1 className="listroomHeaderTitle">🏠 List Your Room</h1>
+            <p className="listroomHeaderStep">Step {currentStep} of {totalSteps}</p>
           </div>
         </div>
 
-        <div className="progressWrapper">
-          <div className="progressBar">
+        <div className="listroomProgressWrapper">
+          <div className="listroomProgressBar">
             <div 
-              className="progressFill"
+              className="listroomProgressFill"
               style={{ width: `${getProgress()}%` }}
             />
           </div>
         </div>
 
-        <div className="stepInfo">
-          <h2 className="stepTitle">{stepTitles[currentStep - 1]}</h2>
-          <p className="stepDescription">{stepDescriptions[currentStep - 1]}</p>
+        <div className="listroomStepInfo">
+          <h2 className="listroomStepTitle">{stepTitles[currentStep - 1]}</h2>
+          <p className="listroomStepDescription">{stepDescriptions[currentStep - 1]}</p>
         </div>
 
-        {errors && <div className="errorMessage">{errors}</div>}
+        {errors && <div className="listroomErrorMessage">⚠️ {errors}</div>}
 
-        <div className="stepContent">
+        <div className="listroomStepContent">
           {currentStep === 1 && (
-            <div className="formGroup">
+            <div className="listroomFormGroup">
               <input
                 type="text"
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Cozy room in modern apartment"
-                className="input"
+                className="listroomInput"
                 maxLength={60}
                 style={{
                   borderColor: formData.title ? '#8D4318' : undefined,
@@ -220,20 +222,20 @@ function ListARoom({ setCurrentPage }) {
                   e.target.style.boxShadow = formData.title ? '0 0 0 3px rgba(141, 67, 24, 0.1)' : '0 2px 10px rgba(0, 0, 0, 0.05)';
                 }}
               />
-              <span className="charCount" style={{ color: formData.title.length > 50 ? '#e74c3c' : undefined }}>
+              <span className="listroomCharCount" style={{ color: formData.title.length > 50 ? '#e74c3c' : undefined }}>
                 {formData.title.length}/60
               </span>
             </div>
           )}
 
           {currentStep === 2 && (
-            <div className="formGroup">
+            <div className="listroomFormGroup">
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Describe your room, neighborhood, and what makes it special..."
-                className="textarea"
+                className="listroomTextarea"
                 maxLength={300}
                 rows={5}
                 style={{
@@ -249,21 +251,21 @@ function ListARoom({ setCurrentPage }) {
                   e.target.style.boxShadow = formData.description ? '0 0 0 3px rgba(141, 67, 24, 0.1)' : '0 2px 10px rgba(0, 0, 0, 0.05)';
                 }}
               />
-              <span className="charCount" style={{ color: formData.description.length > 250 ? '#e74c3c' : undefined }}>
+              <span className="listroomCharCount" style={{ color: formData.description.length > 250 ? '#e74c3c' : undefined }}>
                 {formData.description.length}/300
               </span>
             </div>
           )}
 
           {currentStep === 3 && (
-            <div className="formGroup">
+            <div className="listroomFormGroup">
               <input
                 type="number"
                 name="rent"
                 value={formData.rent}
                 onChange={handleChange}
                 placeholder="Monthly rent amount"
-                className="input"
+                className="listroomInput"
                 min="0"
                 onFocus={(e) => {
                   e.target.style.transform = 'translateY(-2px)';
@@ -278,7 +280,7 @@ function ListARoom({ setCurrentPage }) {
                 name="roomType"
                 value={formData.roomType}
                 onChange={handleChange}
-                className="select"
+                className="listroomSelect"
                 onFocus={(e) => {
                   e.target.style.transform = 'translateY(-2px)';
                   e.target.style.boxShadow = '0 8px 25px rgba(141, 67, 24, 0.15)';
@@ -296,14 +298,14 @@ function ListARoom({ setCurrentPage }) {
           )}
 
           {currentStep === 4 && (
-            <div className="formGroup">
+            <div className="listroomFormGroup">
               <input
                 type="text"
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
                 placeholder="City, Area, Landmark"
-                className="input"
+                className="listroomInput"
                 maxLength={100}
                 style={{
                   borderColor: formData.location ? '#8D4318' : undefined,
@@ -318,7 +320,7 @@ function ListARoom({ setCurrentPage }) {
                   e.target.style.boxShadow = formData.location ? '0 0 0 3px rgba(141, 67, 24, 0.1)' : '0 2px 10px rgba(0, 0, 0, 0.05)';
                 }}
               />
-              <span className="charCount" style={{ color: formData.location.length > 80 ? '#e74c3c' : undefined }}>
+              <span className="listroomCharCount" style={{ color: formData.location.length > 80 ? '#e74c3c' : undefined }}>
                 {formData.location.length}/100
               </span>
               <input
@@ -326,7 +328,7 @@ function ListARoom({ setCurrentPage }) {
                 name="availability"
                 value={formData.availability}
                 onChange={handleChange}
-                className="input"
+                className="listroomInput"
                 onFocus={(e) => {
                   e.target.style.transform = 'translateY(-2px)';
                   e.target.style.boxShadow = '0 8px 25px rgba(141, 67, 24, 0.15)';
@@ -336,29 +338,29 @@ function ListARoom({ setCurrentPage }) {
                   e.target.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
                 }}
               />
-              <label className="inputLabel">Available from</label>
+              <label className="listroomInputLabel">Available from</label>
             </div>
           )}
 
           {currentStep === 5 && (
-            <div className="formGroup">
-              <div className="checkboxGrid">
+            <div className="listroomFormGroup">
+              <div className="listroomCheckboxGrid">
                 {amenityOptions.map((amenity) => (
                   <label 
                     key={amenity} 
-                    className="checkboxItem"
+                    className="listroomCheckboxItem"
                   >
                     <input
                       type="checkbox"
                       checked={formData.amenities.includes(amenity)}
                       onChange={() => handleMultiSelect(amenity, 'amenities')}
-                      className="checkbox"
+                      className="listroomCheckbox"
                       style={{
                         transform: formData.amenities.includes(amenity) ? 'scale(1.1)' : 'scale(1)'
                       }}
                     />
                     <span 
-                      className="checkboxText"
+                      className="listroomCheckboxText"
                       style={{
                         fontWeight: formData.amenities.includes(amenity) ? '700' : '500',
                         color: formData.amenities.includes(amenity) ? '#632D00' : '#495057'
@@ -373,40 +375,40 @@ function ListARoom({ setCurrentPage }) {
           )}
 
           {currentStep === 6 && (
-            <div className="formGroup">
+            <div className="listroomFormGroup">
               <input
                 type="file"
                 multiple
                 accept="image/*"
                 onChange={handleFileChange}
-                className="fileInput"
+                className="listroomFileInput"
                 id="file-upload"
               />
               <label 
                 htmlFor="file-upload" 
-                className="fileUploadBtn"
+                className="listroomFileUploadBtn"
               >
-                Choose Photos (Max 5)
+                📸 Choose Photos (Max 5)
               </label>
               
               {imagePreview.length > 0 && (
-                <div className="imagePreviewGrid">
+                <div className="listroomImagePreviewGrid">
                   {imagePreview.map((preview, index) => (
                     <div 
                       key={index} 
-                      className="imagePreviewItem"
+                      className="listroomImagePreviewItem"
                     >
                       <img 
                         src={preview} 
                         alt={`Preview ${index + 1}`} 
-                        className="imagePreview" 
+                        className="listroomImagePreview" 
                       />
                       <button 
                         type="button"
                         onClick={() => removeImage(index)}
-                        className="removeImageBtn"
+                        className="listroomRemoveImageBtn"
                       >
-                        Remove
+                        ✕ Remove
                       </button>
                     </div>
                   ))}
@@ -416,24 +418,24 @@ function ListARoom({ setCurrentPage }) {
           )}
 
           {currentStep === 7 && (
-            <div className="formGroup">
-              <div className="checkboxGrid">
+            <div className="listroomFormGroup">
+              <div className="listroomCheckboxGrid">
                 {dealBreakerOptions.map((dealBreaker) => (
                   <label 
                     key={dealBreaker} 
-                    className="checkboxItem"
+                    className="listroomCheckboxItem"
                   >
                     <input
                       type="checkbox"
                       checked={formData.dealBreakers.includes(dealBreaker)}
                       onChange={() => handleMultiSelect(dealBreaker, 'dealBreakers')}
-                      className="checkbox"
+                      className="listroomCheckbox"
                       style={{
                         transform: formData.dealBreakers.includes(dealBreaker) ? 'scale(1.1)' : 'scale(1)'
                       }}
                     />
                     <span 
-                      className="checkboxText"
+                      className="listroomCheckboxText"
                       style={{
                         fontWeight: formData.dealBreakers.includes(dealBreaker) ? '700' : '500',
                         color: formData.dealBreakers.includes(dealBreaker) ? '#632D00' : '#495057'
@@ -448,31 +450,31 @@ function ListARoom({ setCurrentPage }) {
           )}
         </div>
 
-        <div className="navFooter">
+        <div className="listroomNavFooter">
           {currentStep > 1 && (
             <button 
               type="button" 
               onClick={prevStep} 
-              className="navBtn navBtnBack"
+              className="listroomNavBtn listroomNavBtnBack"
             >
-              Back
+              ← Back
             </button>
           )}
           {currentStep < totalSteps ? (
             <button 
               type="button" 
               onClick={nextStep} 
-              className="navBtn navBtnNext"
+              className="listroomNavBtn listroomNavBtnNext"
             >
-              Next
+              Next →
             </button>
           ) : (
             <button 
               type="button" 
               onClick={handleSubmit} 
-              className="navBtn navBtnSubmit"
+              className="listroomNavBtn listroomNavBtnSubmit"
             >
-              List My Room
+              🚀 List My Room
             </button>
           )}
         </div>
